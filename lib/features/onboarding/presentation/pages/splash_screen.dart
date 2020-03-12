@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:vestinsight/onboarding_screen.dart';
+import 'package:vestinsight/features/onboarding/presentation/pages/walkthrough_screens.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Timer(duration, () {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (_) {
-          return OnBoardingScreen();
+          return WalkThroughScreen();
         }),
       );
     });
@@ -29,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff347AF0),
+      backgroundColor: Theme.of(context).primaryColor,
       body: Center(
         child: Container(
           height: 30,
