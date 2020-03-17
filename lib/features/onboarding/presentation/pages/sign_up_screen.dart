@@ -2,18 +2,17 @@ import 'package:flutter/material.dart';
 
 import '../../../../routes.dart';
 
-class LoginScreen extends StatefulWidget {
+class SignUpScreen extends StatefulWidget {
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _SignUpScreenState createState() => _SignUpScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
   String _email;
   String _password;
   bool loggingIn = false;
   bool _obscureText = true;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: MediaQuery.of(context).size.height * 0.3,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                  image: AssetImage('assets/images/login_illustration.png'),
+                  image: AssetImage('assets/images/signup_illustration.png'),
                 )),
               ),
               Expanded(
@@ -58,10 +57,72 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
-                                  SizedBox(height: 20),
+                                  SizedBox(height: 10),
                                   Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10, vertical: 10),
+                                    padding: EdgeInsets.only(
+                                        left: 10, right: 10, bottom: 10),
+                                    child: TextFormField(
+                                      style: TextStyle(
+                                        color: Color(0xFF3D4C63),
+                                        fontSize: 16,
+                                      ),
+                                      cursorColor: Color(0xFF3D4C63),
+                                      decoration: InputDecoration(
+                                        hintText: 'First Name',
+                                        hintStyle:
+                                            TextStyle(color: Color(0xFF3D4C63)),
+                                        focusedBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                              width: 1.0),
+                                        ),
+                                        enabledBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Color(0xFF3D4C63),
+                                              width: 0.3),
+                                        ),
+                                      ),
+                                      validator: (input) => !input.contains('@')
+                                          ? 'please enter a valid email'
+                                          : null,
+                                      onSaved: (input) => _email = input,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        left: 10, right: 10, bottom: 10),
+                                    child: TextFormField(
+                                      style: TextStyle(
+                                        color: Color(0xFF3D4C63),
+                                        fontSize: 16,
+                                      ),
+                                      cursorColor: Color(0xFF3D4C63),
+                                      decoration: InputDecoration(
+                                        hintText: 'Last Name',
+                                        hintStyle:
+                                            TextStyle(color: Color(0xFF3D4C63)),
+                                        focusedBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                              width: 1.0),
+                                        ),
+                                        enabledBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Color(0xFF3D4C63),
+                                              width: 0.3),
+                                        ),
+                                      ),
+                                      validator: (input) => !input.contains('@')
+                                          ? 'please enter a valid email'
+                                          : null,
+                                      onSaved: (input) => _email = input,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        left: 10, right: 10, bottom: 10),
                                     child: TextFormField(
                                       style: TextStyle(
                                         color: Color(0xFF3D4C63),
@@ -91,8 +152,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10, vertical: 10),
+                                    padding: EdgeInsets.only(
+                                        left: 10, right: 10, bottom: 10),
                                     child: TextFormField(
                                       style: TextStyle(
                                         color: Color(0xFF3D4C63),
@@ -136,23 +197,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       obscureText: _obscureText,
                                     ),
                                   ),
-                                  Container(
-                                    height: 20,
-                                    alignment: Alignment.centerRight,
-                                    child: FlatButton(
-                                      child: Text(
-                                        'Forgot your password?',
-                                        style: TextStyle(
-                                            color:
-                                                Theme.of(context).primaryColor),
-                                      ),
-                                      onPressed: () {
-                                        Routes.sailor.navigate(
-                                            '/forgot_password_screen');
-                                      },
-                                    ),
-                                  ),
-                                  SizedBox(height: 80),
+                                  SizedBox(height: 10),
                                   Container(
                                     width: 200,
                                     height: 60,
@@ -175,7 +220,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                               ),
                                             )
                                           : Text(
-                                              'Login',
+                                              'Signup',
                                               style: TextStyle(
                                                 color: Colors.white,
                                               ),
@@ -187,7 +232,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
                                       Text(
-                                        'Don\'t have an account?',
+                                        'Already have an account?',
                                         style: TextStyle(
                                           color: Color(0xFF3D4C63),
                                         ),
@@ -196,10 +241,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                       GestureDetector(
                                         onTap: () {
                                           Routes.sailor
-                                              .navigate('/signup_screen');
+                                              .navigate('/login_screen');
                                         },
                                         child: Text(
-                                          'Sign Up',
+                                          'Login',
                                           style: TextStyle(
                                               color: Theme.of(context)
                                                   .primaryColor),
@@ -231,7 +276,6 @@ class _LoginScreenState extends State<LoginScreen> {
         loggingIn = true;
       });
       await Future.delayed(Duration(milliseconds: 2000));
-      Routes.sailor.navigate('/home_screen');
       setState(() {
         loggingIn = false;
       });
