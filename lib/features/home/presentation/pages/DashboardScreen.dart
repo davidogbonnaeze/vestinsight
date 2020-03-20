@@ -1,21 +1,16 @@
 import 'package:flutter/material.dart';
 
+import '../../../../routes.dart';
+
 class DashBoardScreen extends StatefulWidget {
   @override
   _DashBoardScreenState createState() => _DashBoardScreenState();
 }
 
 class _DashBoardScreenState extends State<DashBoardScreen> {
-  double topPadding() {
-    if (MediaQuery.of(context).size.height < 600) {
-      return 10;
-    }
-    return 30;
-  }
-
   @override
   Widget build(BuildContext context) {
-    print(MediaQuery.of(context).size.height);
+    final double _screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -33,7 +28,9 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                         IconButton(
                           color: Colors.black45,
                           icon: Icon(Icons.settings),
-                          onPressed: () {},
+                          onPressed: () {
+                            Routes.sailor.navigate('/settings_screen');
+                          },
                           iconSize: MediaQuery.of(context).size.height > 600
                               ? 20
                               : 25,
@@ -133,6 +130,29 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                           Radius.circular(15),
                                         ),
                                       ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: <Widget>[
+                                            Container(
+                                              height: 50,
+                                              width: 50,
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.all(
+                                                  Radius.circular(15),
+                                                ),
+                                                image: DecorationImage(
+                                                  image: AssetImage(
+                                                      'assets/images/piggyvest_transparent_bg.png'),
+                                                ),
+                                              ),
+                                            ),
+                                            Text('Piggyvest'),
+                                          ],
+                                        ),
+                                      ),
                                     ),
                                   );
                                 }),
@@ -166,15 +186,159 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                       return Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Container(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              .10,
+                                          height: _screenHeight * .10,
                                           width: 290,
                                           decoration: BoxDecoration(
-                                            color: Colors.white70,
+                                            color: Colors.white,
                                             borderRadius: BorderRadius.all(
                                               Radius.circular(15),
+                                            ),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: <Widget>[
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: <Widget>[
+                                                    Container(
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              horizontal: 10),
+                                                      width: 150,
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: <Widget>[
+                                                          CircleAvatar(
+                                                            radius: 15,
+                                                            backgroundImage:
+                                                                AssetImage(
+                                                                    'assets/images/dave.jpg'),
+                                                          ),
+                                                          SizedBox(width: 10),
+                                                          Text('Ernest David')
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    CircleAvatar(
+                                                      child: Image.asset(
+                                                          'assets/images/crowdyvest.jpeg'),
+                                                    )
+                                                  ],
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceAround,
+                                                  children: <Widget>[
+                                                    Column(
+                                                      children: <Widget>[
+                                                        Text(
+                                                          'Amount Invested',
+                                                          style: TextStyle(
+                                                              fontSize: 12),
+                                                        ),
+                                                        SizedBox(height: 3),
+                                                        Text(
+                                                          '55,000',
+                                                          style: TextStyle(
+                                                            fontSize: 21,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Icon(Icons.trending_flat),
+                                                    Column(
+                                                      children: <Widget>[
+                                                        Text(
+                                                          'Expected Amount',
+                                                          style: TextStyle(
+                                                              fontSize: 12),
+                                                        ),
+                                                        SizedBox(height: 3),
+                                                        Text(
+                                                          '75,000',
+                                                          style: TextStyle(
+                                                            fontSize: 21,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceAround,
+                                                  children: <Widget>[
+                                                    Column(
+                                                      children: <Widget>[
+                                                        Text(
+                                                          'ROI',
+                                                          style: TextStyle(
+                                                              fontSize: 12),
+                                                        ),
+                                                        SizedBox(height: 3),
+                                                        Text(
+                                                          '36%',
+                                                          style: TextStyle(
+                                                            fontSize: 14,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Column(
+                                                      children: <Widget>[
+                                                        Text(
+                                                          'Duration',
+                                                          style: TextStyle(
+                                                              fontSize: 12),
+                                                        ),
+                                                        SizedBox(height: 3),
+                                                        Text(
+                                                          '5 Months',
+                                                          style: TextStyle(
+                                                            fontSize: 14,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Column(
+                                                      children: <Widget>[
+                                                        Text(
+                                                          'Days left',
+                                                          style: TextStyle(
+                                                              fontSize: 12),
+                                                        ),
+                                                        SizedBox(height: 3),
+                                                        Text(
+                                                          '90 Days',
+                                                          style: TextStyle(
+                                                            fontSize: 14,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
                                             ),
                                           ),
                                         ),
