@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vestinsight/features/home/presentation/pages/DashboardScreen.dart';
 
 class ExploreInvestmentsScreen extends StatefulWidget {
   @override
@@ -42,14 +43,17 @@ class _ExploreInvestmentsScreenState extends State<ExploreInvestmentsScreen> {
                     const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
                 child: Container(
                   height: MediaQuery.of(context).size.height < 600
-                      ? 200
-                      : MediaQuery.of(context).size.height * 0.27,
+                      ? 150
+                      : MediaQuery.of(context).size.height * 0.2,
                   width: 290,
                   decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor.withOpacity(.6),
                     borderRadius: BorderRadius.all(
                       Radius.circular(10),
                     ),
+                  ),
+                  child: Card(
+                    elevation: 4,
+                    child: ICard(),
                   ),
                 ),
               );

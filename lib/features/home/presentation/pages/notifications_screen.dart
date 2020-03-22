@@ -36,18 +36,26 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             physics: BouncingScrollPhysics(),
             itemCount: 12,
             itemBuilder: (BuildContext context, int index) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4.0),
-                child: Container(
-                  height: MediaQuery.of(context).size.height < 600
-                      ? 60
-                      : MediaQuery.of(context).size.height * 0.08,
-                  width: 290,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor.withOpacity(.6),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(5),
-                    ),
+              return Card(
+                child: ListTile(
+                  leading: CircleAvatar(
+                    backgroundImage: AssetImage('assets/images/dave.jpg'),
+                  ),
+                  title: Text(
+                    'David Ernest',
+                    style: TextStyle(
+                        color: Colors.black45, fontWeight: FontWeight.w500),
+                  ),
+                  subtitle: Text(
+                    'Started watching your investment',
+                    style: TextStyle(fontSize: 12),
+                  ),
+                  trailing: Text(
+                    'Mar 10',
+                    style: TextStyle(
+                        color: Colors.black45,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w400),
                   ),
                 ),
               );

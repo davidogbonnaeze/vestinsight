@@ -171,12 +171,25 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                         child: Container(
                           height: MediaQuery.of(context).size.height * 0.30,
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
                               Container(
+                                padding: EdgeInsets.only(
+                                    left:
+                                        MediaQuery.of(context).size.width * .1),
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  'Latest Investments',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.white70,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ),
+                              Container(
                                 padding: EdgeInsets.only(left: 10),
-                                height:
-                                    MediaQuery.of(context).size.height * .24,
+                                height: MediaQuery.of(context).size.height * .2,
                                 child: ListView.builder(
                                     scrollDirection: Axis.horizontal,
                                     physics: BouncingScrollPhysics(),
@@ -186,7 +199,6 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                       return Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Container(
-                                          height: _screenHeight * .10,
                                           width: 290,
                                           decoration: BoxDecoration(
                                             color: Colors.white,
@@ -194,153 +206,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                               Radius.circular(15),
                                             ),
                                           ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: <Widget>[
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: <Widget>[
-                                                    Container(
-                                                      padding:
-                                                          EdgeInsets.symmetric(
-                                                              horizontal: 10),
-                                                      width: 150,
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        children: <Widget>[
-                                                          CircleAvatar(
-                                                            radius: 15,
-                                                            backgroundImage:
-                                                                AssetImage(
-                                                                    'assets/images/dave.jpg'),
-                                                          ),
-                                                          SizedBox(width: 10),
-                                                          Text('Ernest David')
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    CircleAvatar(
-                                                      child: Image.asset(
-                                                          'assets/images/crowdyvest.jpeg'),
-                                                    )
-                                                  ],
-                                                ),
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceAround,
-                                                  children: <Widget>[
-                                                    Column(
-                                                      children: <Widget>[
-                                                        Text(
-                                                          'Amount Invested',
-                                                          style: TextStyle(
-                                                              fontSize: 12),
-                                                        ),
-                                                        SizedBox(height: 3),
-                                                        Text(
-                                                          '55,000',
-                                                          style: TextStyle(
-                                                            fontSize: 21,
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Icon(Icons.trending_flat),
-                                                    Column(
-                                                      children: <Widget>[
-                                                        Text(
-                                                          'Expected Amount',
-                                                          style: TextStyle(
-                                                              fontSize: 12),
-                                                        ),
-                                                        SizedBox(height: 3),
-                                                        Text(
-                                                          '75,000',
-                                                          style: TextStyle(
-                                                            fontSize: 21,
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceAround,
-                                                  children: <Widget>[
-                                                    Column(
-                                                      children: <Widget>[
-                                                        Text(
-                                                          'ROI',
-                                                          style: TextStyle(
-                                                              fontSize: 12),
-                                                        ),
-                                                        SizedBox(height: 3),
-                                                        Text(
-                                                          '36%',
-                                                          style: TextStyle(
-                                                            fontSize: 14,
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Column(
-                                                      children: <Widget>[
-                                                        Text(
-                                                          'Duration',
-                                                          style: TextStyle(
-                                                              fontSize: 12),
-                                                        ),
-                                                        SizedBox(height: 3),
-                                                        Text(
-                                                          '5 Months',
-                                                          style: TextStyle(
-                                                            fontSize: 14,
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Column(
-                                                      children: <Widget>[
-                                                        Text(
-                                                          'Days left',
-                                                          style: TextStyle(
-                                                              fontSize: 12),
-                                                        ),
-                                                        SizedBox(height: 3),
-                                                        Text(
-                                                          '90 Days',
-                                                          style: TextStyle(
-                                                            fontSize: 14,
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ),
+                                          child: ICard(),
                                         ),
                                       );
                                     }),
@@ -356,6 +222,98 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class ICard extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    CircleAvatar(
+                      backgroundImage: AssetImage('assets/images/dave.jpg'),
+                    ),
+                    SizedBox(width: 15),
+                    Text('Ernest David')
+                  ],
+                ),
+              ),
+              CircleAvatar(
+                backgroundImage: AssetImage('assets/images/crowdyvest.jpeg'),
+              )
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    '75,000',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black45,
+                    ),
+                  ),
+                  SizedBox(height: 3),
+                  Text(
+                    'Amount',
+                    style: TextStyle(fontSize: 12, color: Colors.grey),
+                  ),
+                ],
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    '30%',
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.green),
+                  ),
+                  SizedBox(height: 3),
+                  Text(
+                    'Returns',
+                    style: TextStyle(fontSize: 12, color: Colors.grey),
+                  ),
+                ],
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    '6 mos',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black45,
+                    ),
+                  ),
+                  SizedBox(height: 3),
+                  Text(
+                    'Duration',
+                    style: TextStyle(fontSize: 12, color: Colors.grey),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

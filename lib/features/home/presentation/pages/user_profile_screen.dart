@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vestinsight/features/home/presentation/pages/DashboardScreen.dart';
 
 import '../../../../routes.dart';
 
@@ -12,12 +13,18 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   List<WatchingCards> watchingCards = [];
   int _currentScreen = 0;
 
+  _buildDisplayInvestments() {
+    if (_currentScreen == 0) {
+      investmentCards.add(InvestmentCard());
+      return investmentCards;
+    } else {
+      watchingCards.add(WatchingCards());
+      return watchingCards;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    for (int i = 0; i < 10; i++) {
-      investmentCards.add(InvestmentCard());
-      watchingCards.add(WatchingCards());
-    }
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -105,7 +112,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   IconButton(
-                    padding: EdgeInsets.all(0),
                     icon: Icon(
                       Icons.view_agenda,
                       size: 20,
@@ -120,7 +126,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     },
                   ),
                   IconButton(
-                    padding: EdgeInsets.all(0),
                     icon: Icon(
                       Icons.visibility,
                       size: 20,
@@ -143,49 +148,27 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             color: Colors.black45,
             height: 1,
           ),
-          _currentScreen == 0
-              ? Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(10.0, 10, 0, 10),
-                      child: Container(
-                        alignment: Alignment.center,
-                        child: Text(
-                          'Investments',
-                          style: TextStyle(
-                            color: Colors.black45,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ),
+          Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(10.0, 10, 0, 10),
+                child: Container(
+                  alignment: Alignment.center,
+                  child: Text(
+                    _currentScreen == 0 ? 'My Investments' : 'Watching',
+                    style: TextStyle(
+                      color: Colors.black45,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w400,
                     ),
-                    Column(
-                      children: investmentCards,
-                    ),
-                  ],
-                )
-              : Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(10.0, 10, 0, 10),
-                      child: Container(
-                        alignment: Alignment.center,
-                        child: Text(
-                          'Watching',
-                          style: TextStyle(
-                            color: Colors.black45,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Column(
-                      children: watchingCards,
-                    ),
-                  ],
+                  ),
                 ),
+              ),
+              Column(
+                children: _buildDisplayInvestments(),
+              ),
+            ],
+          ),
         ],
       ),
     );
@@ -199,14 +182,18 @@ class InvestmentCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
       child: Container(
         height: MediaQuery.of(context).size.height < 600
-            ? 200
-            : MediaQuery.of(context).size.height * 0.27,
+            ? 150
+            : MediaQuery.of(context).size.height * 0.2,
         width: MediaQuery.of(context).size.width * .9,
         decoration: BoxDecoration(
-          color: Theme.of(context).primaryColor.withOpacity(.6),
+          color: Colors.white,
           borderRadius: BorderRadius.all(
             Radius.circular(10),
           ),
+        ),
+        child: Card(
+          elevation: 3,
+          child: ICard(),
         ),
       ),
     );
@@ -220,14 +207,18 @@ class WatchingCards extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
       child: Container(
         height: MediaQuery.of(context).size.height < 600
-            ? 200
-            : MediaQuery.of(context).size.height * 0.27,
+            ? 150
+            : MediaQuery.of(context).size.height * 0.2,
         width: MediaQuery.of(context).size.width * .9,
         decoration: BoxDecoration(
-          color: Colors.blueGrey,
+          color: Colors.white,
           borderRadius: BorderRadius.all(
             Radius.circular(10),
           ),
+        ),
+        child: Card(
+          elevation: 3,
+          child: ICard(),
         ),
       ),
     );
