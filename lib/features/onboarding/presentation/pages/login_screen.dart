@@ -13,9 +13,17 @@ class _LoginScreenState extends State<LoginScreen> {
   String _password;
   bool loggingIn = false;
   bool _obscureText = true;
+  final FocusNode _emailFocus = FocusNode();
+  final FocusNode _passwordFocus = FocusNode();
 
   @override
   Widget build(BuildContext context) {
+    _fieldFocusChange(
+        BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
+      currentFocus.unfocus();
+      FocusScope.of(context).requestFocus(nextFocus);
+    }
+
     return Scaffold(
       backgroundColor: Color(0xffEDF1F9),
       body: SingleChildScrollView(
@@ -63,10 +71,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 10, vertical: 10),
                                     child: TextFormField(
+                                      focusNode: _emailFocus,
+                                      textInputAction: TextInputAction.next,
                                       style: TextStyle(
                                         color: Color(0xFF3D4C63),
                                         fontSize: 16,
                                       ),
+                                      onFieldSubmitted: (term) {
+                                        _fieldFocusChange(context, _emailFocus,
+                                            _passwordFocus);
+                                      },
                                       cursorColor: Color(0xFF3D4C63),
                                       decoration: InputDecoration(
                                         hintText: 'Email address',
@@ -94,6 +108,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 10, vertical: 10),
                                     child: TextFormField(
+                                      focusNode: _passwordFocus,
+                                      textInputAction: TextInputAction.done,
+                                      onFieldSubmitted: (value) {
+                                        _passwordFocus.unfocus();
+                                        _submit();
+                                      },
                                       style: TextStyle(
                                         color: Color(0xFF3D4C63),
                                         fontSize: 16,
@@ -209,7 +229,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   )
                                 ],
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),

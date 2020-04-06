@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:vestinsight/features/home/presentation/pages/DashboardScreen.dart';
+import 'package:vestinsight/features/home/data/local/models/investment_model.dart';
+import 'package:vestinsight/features/home/presentation/pages/dashboard_screen.dart';
+import 'package:vestinsight/features/home/presentation/widgets/elevated_investment_card.dart';
+import 'package:vestinsight/features/home/presentation/widgets/investment_card.dart';
 
 class ExploreInvestmentsScreen extends StatefulWidget {
   @override
@@ -36,26 +39,17 @@ class _ExploreInvestmentsScreenState extends State<ExploreInvestmentsScreen> {
         child: ListView.builder(
             scrollDirection: Axis.vertical,
             physics: BouncingScrollPhysics(),
-            itemCount: 6,
+            itemCount: investments.length,
             itemBuilder: (BuildContext context, int index) {
-              return Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-                child: Container(
-                  height: MediaQuery.of(context).size.height < 600
-                      ? 150
-                      : MediaQuery.of(context).size.height * 0.2,
-                  width: 290,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
-                    ),
-                  ),
-                  child: Card(
-                    elevation: 4,
-                    child: ICard(),
-                  ),
-                ),
+              InvestmentModel investment = investments[index];
+              return ElevatedInvestmentCard(
+                brokerImageURL: investment.brokerId,
+                investorName: investment.investorName,
+                investmentAmount: investment.amount,
+                investmentDescription: investment.description,
+                investmentDuration: investment.duration,
+                investorImageURL: investment.investorId,
+                percentageROI: investment.percentageROI,
               );
             }),
       ),

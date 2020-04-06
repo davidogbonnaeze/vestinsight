@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vestinsight/features/home/data/local/models/notification_model.dart';
 
 class NotificationsScreen extends StatefulWidget {
   @override
@@ -34,15 +35,17 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         child: ListView.builder(
             scrollDirection: Axis.vertical,
             physics: BouncingScrollPhysics(),
-            itemCount: 12,
+            itemCount: notifications.length,
             itemBuilder: (BuildContext context, int index) {
+              NotificationModel notification = notifications[index];
               return Card(
                 child: ListTile(
                   leading: CircleAvatar(
-                    backgroundImage: AssetImage('assets/images/dave.jpg'),
+                    backgroundColor: Colors.white,
+                    backgroundImage: AssetImage(notification.notifierId),
                   ),
                   title: Text(
-                    'David Ernest',
+                    notification.investorName,
                     style: TextStyle(
                         color: Colors.black45, fontWeight: FontWeight.w500),
                   ),

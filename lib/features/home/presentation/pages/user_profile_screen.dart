@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:vestinsight/features/home/presentation/pages/DashboardScreen.dart';
+import 'package:vestinsight/features/home/data/local/models/investment_model.dart';
+import 'package:vestinsight/features/home/presentation/widgets/elevated_investment_card.dart';
+import 'package:vestinsight/features/home/presentation/widgets/investment_card.dart';
 
 import '../../../../routes.dart';
 
@@ -9,16 +11,38 @@ class UserProfileScreen extends StatefulWidget {
 }
 
 class _UserProfileScreenState extends State<UserProfileScreen> {
-  List<InvestmentCard> investmentCards = [];
-  List<WatchingCards> watchingCards = [];
   int _currentScreen = 0;
 
   _buildDisplayInvestments() {
     if (_currentScreen == 0) {
-      investmentCards.add(InvestmentCard());
+      List<ElevatedInvestmentCard> investmentCards = [];
+      for (InvestmentModel investment in investments) {
+        if (investment.investorId == 'assets/images/dave.jpg') {
+          investmentCards.add(ElevatedInvestmentCard(
+            brokerImageURL: investment.brokerId,
+            investorName: investment.investorName,
+            investmentAmount: investment.amount,
+            investmentDescription: investment.description,
+            investmentDuration: investment.duration,
+            investorImageURL: investment.investorId,
+            percentageROI: investment.percentageROI,
+          ));
+        }
+      }
       return investmentCards;
     } else {
-      watchingCards.add(WatchingCards());
+      List<ElevatedInvestmentCard> watchingCards = [];
+      for (InvestmentModel investment in investments) {
+        watchingCards.add(ElevatedInvestmentCard(
+          brokerImageURL: investment.brokerId,
+          investorName: investment.investorName,
+          investmentAmount: investment.amount,
+          investmentDescription: investment.description,
+          investmentDuration: investment.duration,
+          investorImageURL: investment.investorId,
+          percentageROI: investment.percentageROI,
+        ));
+      }
       return watchingCards;
     }
   }
@@ -170,56 +194,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             ],
           ),
         ],
-      ),
-    );
-  }
-}
-
-class InvestmentCard extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-      child: Container(
-        height: MediaQuery.of(context).size.height < 600
-            ? 150
-            : MediaQuery.of(context).size.height * 0.2,
-        width: MediaQuery.of(context).size.width * .9,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.all(
-            Radius.circular(10),
-          ),
-        ),
-        child: Card(
-          elevation: 3,
-          child: ICard(),
-        ),
-      ),
-    );
-  }
-}
-
-class WatchingCards extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-      child: Container(
-        height: MediaQuery.of(context).size.height < 600
-            ? 150
-            : MediaQuery.of(context).size.height * 0.2,
-        width: MediaQuery.of(context).size.width * .9,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.all(
-            Radius.circular(10),
-          ),
-        ),
-        child: Card(
-          elevation: 3,
-          child: ICard(),
-        ),
       ),
     );
   }
