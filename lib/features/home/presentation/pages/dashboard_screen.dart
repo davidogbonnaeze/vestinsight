@@ -130,37 +130,41 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                               itemCount: brokers.length,
                               itemBuilder: (BuildContext context, int index) {
                                 BrokerModel broker = brokers[index];
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    width: 100,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(15),
+                                return InkWell(
+                                  onTap: () => Routes.sailor
+                                      .navigate('/explore_investment_screen'),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      width: 100,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(15),
+                                        ),
                                       ),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: <Widget>[
-                                          Container(
-                                            height: 50,
-                                            width: 50,
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.all(
-                                                Radius.circular(15),
-                                              ),
-                                              image: DecorationImage(
-                                                image:
-                                                    AssetImage(broker.imgUrl),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: <Widget>[
+                                            Container(
+                                              height: 50,
+                                              width: 50,
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.all(
+                                                  Radius.circular(15),
+                                                ),
+                                                image: DecorationImage(
+                                                  image:
+                                                      AssetImage(broker.imgUrl),
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                          Text(broker.name),
-                                        ],
+                                            Text(broker.name),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "43308733945",
+    "firebase_url": "https://vestinsight.firebaseio.com",
+    "project_id": "vestinsight",
+    "storage_bucket": "vestinsight.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:43308733945:android:46df9d6c5006c0ba8d5928",
+        "android_client_info": {
+          "package_name": "com.ernestdavid.vestinsight"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "43308733945-e4gkpp5hmmphj5n6akffis36b2eqdsnt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACVM7kAT4BOZTstkpS3Hc5TZ17n3ZGOLw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "43308733945-e4gkpp5hmmphj5n6akffis36b2eqdsnt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

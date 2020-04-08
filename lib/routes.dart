@@ -1,6 +1,9 @@
 import 'package:sailor/sailor.dart';
+import 'package:vestinsight/features/home/presentation/pages/explore_investments_screen.dart';
 import 'package:vestinsight/features/home/presentation/pages/home_screen.dart';
+import 'package:vestinsight/features/home/presentation/pages/investment_screen.dart';
 import 'package:vestinsight/features/home/presentation/pages/settings_screen.dart';
+import 'package:vestinsight/features/home/presentation/pages/view_image_screen.dart';
 import 'package:vestinsight/features/onboarding/presentation/pages/check_email_screen.dart';
 import 'package:vestinsight/features/onboarding/presentation/pages/forgot_password_screen.dart';
 import 'package:vestinsight/features/onboarding/presentation/pages/login_screen.dart';
@@ -60,6 +63,24 @@ class Routes {
         name: '/settings_screen',
         builder: (context, args, params) {
           return SettingsScreen();
+        },
+      ),
+      SailorRoute(
+        name: '/investment_screen',
+        builder: (context, args, params) {
+          return InvestmentScreen();
+        },
+      ),
+      SailorRoute(
+        name: '/view_image_screen',
+        builder: (context, args, params) {
+          return ViewImageScreen();
+        },
+      ),
+      SailorRoute(
+        name: '/explore_investment_screen',
+        builder: (context, args, params) {
+          return ExploreInvestmentsScreen();
         },
       ),
     ]);
