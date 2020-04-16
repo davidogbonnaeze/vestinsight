@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sailor/sailor.dart';
 
 import '../../../../routes.dart';
 
@@ -240,8 +241,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       SizedBox(width: 5),
                                       GestureDetector(
                                         onTap: () {
-                                          Routes.sailor
-                                              .navigate('/login_screen');
+                                          Navigator.of(context).pop();
                                         },
                                         child: Text(
                                           'Login',

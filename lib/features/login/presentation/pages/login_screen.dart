@@ -40,9 +40,49 @@ class _LoginScreenState extends State<LoginScreen> {
             listener: (context, state) {
               print(state);
               if (state is LoginSuccessState) {
-                print('succes state');
+                print('success state');
                 Navigator.of(context).pushReplacement(
                     MaterialPageRoute(builder: (_) => HomeScreen()));
+              }
+              if (state is LoginLoadingState) {
+                BotToast.showCustomLoading(
+                    clickClose: false,
+                    allowClick: true,
+                    backButtonBehavior: BackButtonBehavior.none,
+                    ignoreContentClick: false,
+                    backgroundColor: Color(0x42000000),
+                    align: Alignment.center,
+                    toastBuilder: (cancelFunc) {
+                      return Card(
+                        shape: RoundedRectangleBorder(),
+                        child: Padding(
+                          padding: EdgeInsets.all(30),
+                          child: CircularProgressIndicator(
+                            backgroundColor: Theme.of(context).primaryColor,
+                            valueColor:
+                                new AlwaysStoppedAnimation<Color>(Colors.white),
+                          ),
+                        ),
+                      );
+                    });
+              }
+              if (state is LoginFailState) {
+                BotToast.closeAllLoading();
+                BotToast.showCustomLoading(
+                    clickClose: true,
+                    allowClick: true,
+                    backButtonBehavior: BackButtonBehavior.none,
+                    ignoreContentClick: false,
+                    backgroundColor: Color(0x42000000),
+                    align: Alignment.center,
+                    toastBuilder: (cancelFunc) {
+                      return Card(
+                        child: Padding(
+                          padding: EdgeInsets.all(30),
+                          child: Text(state.message),
+                        ),
+                      );
+                    });
               }
             },
             child: SingleChildScrollView(
@@ -54,32 +94,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       bloc: loginBloc,
                       builder: (context, state) {
                         print(state);
-                        if (state is LoginFailState) {
-                          print(state);
-                          BotToast.showText(text: 'Login Failed');
-                        } else if (state is LoginLoadingState) {
-                          BotToast.showCustomLoading(
-                              clickClose: false,
-                              allowClick: true,
-                              backButtonBehavior: BackButtonBehavior.none,
-                              ignoreContentClick: false,
-                              backgroundColor: Color(0x42000000),
-                              align: Alignment.center,
-                              toastBuilder: (cancelFunc) {
-                                return Card(
-                                  child: Padding(
-                                    padding: EdgeInsets.all(30),
-                                    child: CircularProgressIndicator(
-                                      backgroundColor:
-                                          Theme.of(context).primaryColor,
-                                      valueColor:
-                                          new AlwaysStoppedAnimation<Color>(
-                                              Colors.white),
-                                    ),
-                                  ),
-                                );
-                              });
-                        }
+
+                        if (state is LoginLoadingState) {}
                         return SizedBox.shrink();
                       },
                     ),

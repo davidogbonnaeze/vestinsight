@@ -20,8 +20,6 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
   @override
   Widget build(BuildContext context) {
     return BotToastInit(
@@ -35,12 +33,8 @@ class MyApp extends StatelessWidget {
                   navigationType: NavigationType.pushReplace);
             }
             if (state is UnauthenticatedState) {
-              print('here');
               return Routes.sailor.navigate('/login_screen',
                   navigationType: NavigationType.pushReplace);
-            }
-            if (state is InitialUserAuthState) {
-              return Routes.sailor.navigate('/splash_screen');
             }
             return null;
           },
@@ -59,11 +53,12 @@ class MyApp extends StatelessWidget {
                 return SplashScreen();
               }
               if (state is UnauthenticatedState) {
-                print('gotcha');
                 return LoginScreen();
               }
+              if (state is FirstTimeAuthState) {
+                return WalkThroughScreen();
+              }
               if (state is AuthenticatedState) {
-                print('a');
                 return HomeScreen();
               }
               return Container();

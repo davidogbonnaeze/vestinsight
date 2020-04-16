@@ -22,21 +22,6 @@ class _SplashScreenState extends State<SplashScreen> {
 //    startSplashScreen();
   }
 
-  startSplashScreen() async {
-    var duration = const Duration(seconds: 5);
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    int counter = (prefs.getInt('counter') ?? 0);
-    if (counter < 1) {
-      counter++;
-      prefs.setInt('counter', counter);
-      return Timer(duration, () {
-        Routes.sailor.navigate('/walkthrough_screen');
-      });
-    } else {
-      Routes.sailor.navigate('/login_screen');
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

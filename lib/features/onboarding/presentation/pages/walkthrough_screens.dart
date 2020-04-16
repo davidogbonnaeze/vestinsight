@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:sailor/sailor.dart';
 import 'package:vestinsight/routes.dart';
 
 class WalkThroughScreen extends StatefulWidget {
@@ -35,10 +36,10 @@ class _WalkThroughScreenState extends State<WalkThroughScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xffEDF1F9),
-      body: SafeArea(
-        child: AnnotatedRegion<SystemUiOverlayStyle>(
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Color(0xffEDF1F9),
+        body: AnnotatedRegion<SystemUiOverlayStyle>(
           value: SystemUiOverlayStyle.light,
           child: Column(
             children: <Widget>[
@@ -51,8 +52,9 @@ class _WalkThroughScreenState extends State<WalkThroughScreen> {
                     children: <Widget>[
                       _currentPage != _numPages - 1
                           ? FlatButton(
-                              onPressed: () =>
-                                  Routes.sailor.navigate('/login_screen'),
+                              onPressed: () => Routes.sailor.navigate(
+                                  '/login_screen',
+                                  navigationType: NavigationType.pushReplace),
                               child: Text(
                                 'Skip',
                                 style: TextStyle(
@@ -100,10 +102,6 @@ class _WalkThroughScreenState extends State<WalkThroughScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
                                   SizedBox(height: 20),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: _buildPageIndicator(),
-                                  ),
                                   SizedBox(height: 60),
                                   Text(
                                     'Welcome to',
@@ -167,10 +165,6 @@ class _WalkThroughScreenState extends State<WalkThroughScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
                                   SizedBox(height: 20),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: _buildPageIndicator(),
-                                  ),
                                   SizedBox(height: 60),
                                   Text(
                                     'Welcome to',
@@ -234,10 +228,6 @@ class _WalkThroughScreenState extends State<WalkThroughScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
                                   SizedBox(height: 20),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: _buildPageIndicator(),
-                                  ),
                                   SizedBox(height: 60),
                                   Text(
                                     'Welcome to',
@@ -303,10 +293,6 @@ class _WalkThroughScreenState extends State<WalkThroughScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
                                   SizedBox(height: 20),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: _buildPageIndicator(),
-                                  ),
                                   SizedBox(height: 60),
                                   Text(
                                     'Welcome to',
@@ -330,7 +316,9 @@ class _WalkThroughScreenState extends State<WalkThroughScreen> {
                                     shape: StadiumBorder(),
                                     color: Theme.of(context).primaryColor,
                                     onPressed: () {
-                                      Routes.sailor.navigate('/login_screen');
+                                      Routes.sailor.navigate('/login_screen',
+                                          navigationType:
+                                              NavigationType.pushReplace);
                                     },
                                     child: Text('Get Started'),
                                   )
@@ -345,6 +333,15 @@ class _WalkThroughScreenState extends State<WalkThroughScreen> {
                 ),
               ),
             ],
+          ),
+        ),
+        bottomNavigationBar: Container(
+          decoration: BoxDecoration(color: Colors.white),
+          alignment: Alignment.center,
+          height: 100,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: _buildPageIndicator(),
           ),
         ),
       ),

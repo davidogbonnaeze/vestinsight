@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vestinsight/features/onboarding/domain/repositories/auth_service.dart';
 import 'package:vestinsight/injection_container.dart';
 import 'package:vestinsight/routes.dart';
@@ -24,7 +25,11 @@ class UserAuthBloc extends Bloc<UserAuthEvent, UserAuthState> {
           yield AuthenticatedState(user: user);
         } else {
           await Future.delayed(Duration(seconds: 3));
-          yield UnauthenticatedState();
+          if (await isFirstTimer()) {
+            yield FirstTimeAuthState();
+          } else {
+            yield UnauthenticatedState();
+          }
         }
       } catch (e) {
         yield UnauthenticatedState();
@@ -35,5 +40,15 @@ class UserAuthBloc extends Bloc<UserAuthEvent, UserAuthState> {
       yield UnauthenticatedState();
       print('sign out');
     }
+  }
+
+  isFirstTimer() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int counter = (prefs.getInt('counter') ?? 0);
+    print(counter);
+    bool isFirstTimer = counter < 1;
+    counter++;
+    prefs.setInt('counter', counter);
+    return isFirstTimer;
   }
 }

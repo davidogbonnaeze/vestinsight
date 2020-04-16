@@ -42,7 +42,7 @@ class AuthService {
       FirebaseUser user = authResult.user;
       print(user.toString());
       return user;
-    } catch (e) {
+    } on PlatformException catch (e) {
       print(e);
       String authError = "";
       authError = filterErrorMessage(e, authError);
