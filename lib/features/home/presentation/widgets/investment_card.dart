@@ -20,7 +20,7 @@ class InvestmentCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: () => Routes.sailor.navigate('/investment_screen'),
       child: Container(
         height: 200,

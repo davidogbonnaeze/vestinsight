@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vestinsight/features/login/presentation/bloc/bloc.dart';
+import 'package:vestinsight/features/onboarding/domain/repositories/auth_service.dart';
+import 'package:vestinsight/features/onboarding/presentation/bloc/user_auth/bloc.dart';
+import 'package:vestinsight/injection_container.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override
@@ -229,10 +234,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
             ),
-            GestureDetector(
+            InkWell(
               onTap: () {
                 Navigator.pop(context);
-                Navigator.pop(context);
+                BlocProvider.of<UserAuthBloc>(context).add(LogOutEvent());
               },
               child: Container(
                 decoration: BoxDecoration(

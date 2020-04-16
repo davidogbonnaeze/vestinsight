@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vestinsight/features/home/presentation/pages/dashboard_screen.dart';
@@ -7,6 +8,10 @@ import 'package:vestinsight/features/home/presentation/pages/notifications_scree
 import 'package:vestinsight/features/home/presentation/pages/user_profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
+  final FirebaseUser currentUser;
+
+  HomeScreen({this.currentUser});
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
