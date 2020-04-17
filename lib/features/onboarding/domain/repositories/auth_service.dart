@@ -2,16 +2,20 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:vestinsight/core/utils/error_codes.dart';
 import 'package:flutter/services.dart';
+import 'package:vestinsight/injection_container.dart';
 
 class AuthService {
   FirebaseAuth firebaseAuth;
-  static final _fireStore = Firestore.instance;
+  static final _fireStore = sl<Firestore>();
   AuthService() {
     this.firebaseAuth = FirebaseAuth.instance;
   }
 
   Future<FirebaseUser> signUpUserWithEmailPass(
-      String firstName, String lastName, String email, String password) async {
+      {String firstName,
+      String lastName,
+      String email,
+      String password}) async {
     try {
       AuthResult authResult = await firebaseAuth.createUserWithEmailAndPassword(
         email: email,
@@ -28,6 +32,7 @@ class AuthService {
       print("REPO : ${authResult.user.email}");
       return authResult.user;
     } on PlatformException catch (e) {
+      print(e);
       String authError = "";
       authError = filterErrorMessage(e, authError);
       throw Exception(authError);
@@ -86,7 +91,7 @@ class AuthService {
       case ErrorCodes.ERROR_CODE_WRONG_PASSWORD:
         authError = ErrorMessages.ERROR_CODE_WRONG_PASSWORD;
         break;
-      case ErrorCodes.ERROR_CODE_EMAIL_ALREADY_IN_USE:
+      case ErrorCodes.ERROR_EMAIL_ALREADY_IN_USE:
         authError = ErrorMessages.ERROR_CODE_EMAIL_ALREADY_IN_USE;
         break;
       case ErrorCodes.ERROR_OPERATION_NOT_ALLOWED:

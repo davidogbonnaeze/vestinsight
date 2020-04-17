@@ -363,13 +363,6 @@ class _AddInvestmentsScreenState extends State<AddInvestmentsScreen> {
   _submit() async {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      setState(() {
-        loggingIn = true;
-      });
-      await Future.delayed(Duration(milliseconds: 2000));
-      setState(() {
-        loggingIn = false;
-      });
     }
   }
 }

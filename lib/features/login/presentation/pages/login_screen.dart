@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vestinsight/features/home/presentation/pages/home_screen.dart';
 import 'package:vestinsight/features/login/presentation/bloc/bloc.dart';
+import 'package:vestinsight/features/onboarding/presentation/bloc/user_auth/bloc.dart';
 
 import '../../../../injection_container.dart';
 import '../../../../routes.dart';
@@ -40,9 +41,8 @@ class _LoginScreenState extends State<LoginScreen> {
             listener: (context, state) {
               print(state);
               if (state is LoginSuccessState) {
-                print('success state');
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (_) => HomeScreen()));
+                BlocProvider.of<UserAuthBloc>(context)
+                    .add(LoginSuccessfulEvent(currentUser: state.user));
               }
               if (state is LoginLoadingState) {
                 BotToast.showCustomLoading(
@@ -143,6 +143,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                             focusNode: _emailFocus,
                                             textInputAction:
                                                 TextInputAction.next,
+                                            keyboardType:
+                                                TextInputType.emailAddress,
                                             style: TextStyle(
                                               color: Color(0xFF3D4C63),
                                               fontSize: 16,
@@ -153,9 +155,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                             },
                                             cursorColor: Color(0xFF3D4C63),
                                             decoration: InputDecoration(
-                                              hintText: 'Email address',
-                                              hintStyle: TextStyle(
-                                                  color: Color(0xFF3D4C63)),
+                                              labelText: 'Email Address',
+                                              labelStyle: TextStyle(
+                                                  fontWeight: FontWeight.w400),
                                               focusedBorder:
                                                   UnderlineInputBorder(
                                                 borderSide: BorderSide(
@@ -208,9 +210,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   size: 20,
                                                 ),
                                               ),
-                                              hintText: 'Password',
-                                              hintStyle: TextStyle(
-                                                  color: Color(0xFF3D4C63)),
+                                              labelText: 'Password',
+                                              labelStyle: TextStyle(
+                                                  fontWeight: FontWeight.w400),
                                               focusedBorder:
                                                   UnderlineInputBorder(
                                                 borderSide: BorderSide(
@@ -332,6 +334,7 @@ class _LoginScreenState extends State<LoginScreen> {
   _submit() {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
+      FocusScope.of(context).unfocus();
       loginBloc.add(LoginButtonPressed(email: _email, password: _password));
     }
   }

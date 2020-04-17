@@ -40,6 +40,12 @@ class UserAuthBloc extends Bloc<UserAuthEvent, UserAuthState> {
       yield UnauthenticatedState();
       print('sign out');
     }
+    if (event is SignUpSuccessfulEvent) {
+      yield AuthenticatedState(user: event.currentUser);
+    }
+    if (event is LoginSuccessfulEvent) {
+      yield AuthenticatedState(user: event.currentUser);
+    }
   }
 
   isFirstTimer() async {

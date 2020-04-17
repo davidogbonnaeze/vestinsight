@@ -7,7 +7,7 @@ import 'package:vestinsight/features/home/presentation/pages/view_image_screen.d
 import 'package:vestinsight/features/onboarding/presentation/pages/check_email_screen.dart';
 import 'package:vestinsight/features/onboarding/presentation/pages/forgot_password_screen.dart';
 import 'package:vestinsight/features/login/presentation/pages/login_screen.dart';
-import 'package:vestinsight/features/onboarding/presentation/pages/sign_up_screen.dart';
+import 'package:vestinsight/features/signup/presentation/pages/sign_up_screen.dart';
 import 'package:vestinsight/features/onboarding/presentation/pages/splash_screen.dart';
 import 'package:vestinsight/features/onboarding/presentation/pages/walkthrough_screens.dart';
 
