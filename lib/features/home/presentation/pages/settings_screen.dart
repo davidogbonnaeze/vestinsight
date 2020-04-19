@@ -4,6 +4,7 @@ import 'package:vestinsight/features/login/presentation/bloc/bloc.dart';
 import 'package:vestinsight/features/onboarding/domain/repositories/auth_service.dart';
 import 'package:vestinsight/features/onboarding/presentation/bloc/user_auth/bloc.dart';
 import 'package:vestinsight/injection_container.dart';
+import 'package:vestinsight/routes.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override
@@ -61,8 +62,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
             ),
-            GestureDetector(
-              onTap: () {},
+            InkWell(
+              onTap: () {
+                Routes.sailor.navigate('/edit_profile_screen');
+              },
               child: Container(
                 decoration: BoxDecoration(
                     border: Border(
@@ -93,7 +96,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
             ),
-            GestureDetector(
+            InkWell(
               onTap: () {},
               child: Container(
                 decoration: BoxDecoration(
@@ -138,7 +141,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
             ),
-            GestureDetector(
+            InkWell(
               onTap: () {},
               child: Container(
                 decoration: BoxDecoration(
@@ -170,7 +173,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
             ),
-            GestureDetector(
+            InkWell(
               onTap: () {},
               child: Container(
                 decoration: BoxDecoration(
@@ -202,7 +205,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
             ),
-            GestureDetector(
+            InkWell(
               onTap: () {},
               child: Container(
                 decoration: BoxDecoration(

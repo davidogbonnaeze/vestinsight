@@ -40,7 +40,11 @@ class _WalkThroughScreenState extends State<WalkThroughScreen> {
       child: Scaffold(
         backgroundColor: Color(0xffEDF1F9),
         body: AnnotatedRegion<SystemUiOverlayStyle>(
-          value: SystemUiOverlayStyle.light,
+          value: SystemUiOverlayStyle(
+            statusBarBrightness: Brightness.light,
+            statusBarColor: Colors.grey,
+            statusBarIconBrightness: Brightness.dark,
+          ),
           child: Column(
             children: <Widget>[
               Container(

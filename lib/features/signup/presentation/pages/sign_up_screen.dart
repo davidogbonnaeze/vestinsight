@@ -1,7 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sailor/sailor.dart';
 import 'package:vestinsight/features/onboarding/presentation/bloc/user_auth/bloc.dart';
 import 'package:vestinsight/features/onboarding/presentation/bloc/user_auth/user_auth_bloc.dart';
 import 'package:vestinsight/features/signup/presentation/bloc/bloc.dart';

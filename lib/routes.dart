@@ -1,4 +1,5 @@
 import 'package:sailor/sailor.dart';
+import 'package:vestinsight/features/home/presentation/pages/edit_profile_screen.dart';
 import 'package:vestinsight/features/home/presentation/pages/explore_investments_screen.dart';
 import 'package:vestinsight/features/home/presentation/pages/home_screen.dart';
 import 'package:vestinsight/features/home/presentation/pages/investment_screen.dart';
@@ -81,6 +82,12 @@ class Routes {
         name: '/explore_investment_screen',
         builder: (context, args, params) {
           return ExploreInvestmentsScreen();
+        },
+      ),
+      SailorRoute(
+        name: '/edit_profile_screen',
+        builder: (context, args, params) {
+          return EditProfileScreen();
         },
       ),
     ]);

@@ -8,6 +8,12 @@ class InvestmentScreen extends StatefulWidget {
 }
 
 class _InvestmentScreenState extends State<InvestmentScreen> {
+  bool _isWatching = false;
+
+  toggleWatching() {
+    return _isWatching = !_isWatching;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,8 +33,13 @@ class _InvestmentScreenState extends State<InvestmentScreen> {
           IconButton(
             icon: Icon(Icons.visibility),
             iconSize: 20,
-            color: Colors.black45,
-            onPressed: () {},
+            color:
+                _isWatching ? Theme.of(context).primaryColor : Colors.black45,
+            onPressed: () {
+              setState(() {
+                toggleWatching();
+              });
+            },
           )
         ],
         title: Center(
