@@ -90,8 +90,6 @@ class _AddInvestmentsScreenState extends State<AddInvestmentsScreen> {
     }
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -294,19 +292,22 @@ class _AddInvestmentsScreenState extends State<AddInvestmentsScreen> {
                               child: Container(
                                 height: 250,
                                 width: width,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey[300],
-                                  image: _image == null
-                                      ? Icon(
-                                          Icons.add_a_photo,
-                                          color: Colors.white70,
-                                          size: 80,
-                                        )
-                                      : DecorationImage(
+                                decoration: _image == null
+                                    ? BoxDecoration(color: Colors.grey[300])
+                                    : BoxDecoration(
+                                        color: Colors.grey[300],
+                                        image: DecorationImage(
                                           image: FileImage(_image),
                                           fit: BoxFit.fitHeight,
                                         ),
-                                ),
+                                      ),
+                                child: _image == null
+                                    ? Icon(
+                                        Icons.add_photo_alternate,
+                                        color: Colors.white,
+                                        size: 60,
+                                      )
+                                    : SizedBox.shrink(),
                               ),
                             ),
                           ],
