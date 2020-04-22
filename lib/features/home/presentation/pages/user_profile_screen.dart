@@ -1,7 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vestinsight/features/home/data/local/models/investment_model.dart';
+import 'package:vestinsight/features/home/domain/entities/user.dart';
 import 'package:vestinsight/features/home/presentation/widgets/elevated_investment_card.dart';
-import 'package:vestinsight/features/home/presentation/widgets/investment_card.dart';
+import 'package:vestinsight/features/onboarding/presentation/bloc/user_auth/bloc.dart';
 
 import '../../../../routes.dart';
 
@@ -73,55 +76,76 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       ),
       backgroundColor: Colors.white,
       body: ListView(
+        physics: BouncingScrollPhysics(),
         children: <Widget>[
           Container(
-            height: MediaQuery.of(context).size.height * .20,
+            height: MediaQuery.of(context).size.height * .30,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(left: 30.0),
-                  child: Row(
-                    children: <Widget>[
-                      Container(
-                        height: MediaQuery.of(context).size.height * .15,
-                        width: MediaQuery.of(context).size.height * .15,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          image: DecorationImage(
-                              image: AssetImage('assets/images/dave.jpg'),
-                              fit: BoxFit.cover),
+                BlocBuilder<UserAuthBloc, UserAuthState>(
+                  builder: (context, state) {
+                    if (state is AuthenticatedState) {
+                      User user = state.user;
+                      print(user.profileImageUrl);
+                      String userName = '${user.firstName} ${user.lastName}';
+                      String email = '${user.email}';
+                      return Padding(
+                        padding: EdgeInsets.only(left: 0.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Container(
+                              height: MediaQuery.of(context).size.height * .13,
+                              width: MediaQuery.of(context).size.height * .13,
+                              decoration: BoxDecoration(
+                                color: Colors.blueGrey,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                                image: DecorationImage(
+                                    image: user.profileImageUrl.isEmpty
+                                        ? AssetImage(
+                                            'assets/images/placeholder.png')
+                                        : CachedNetworkImageProvider(
+                                            user.profileImageUrl),
+                                    fit: BoxFit.cover),
+                              ),
+                            ),
+                            SizedBox(height: 20),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Text(
+                                  userName,
+                                  style: TextStyle(
+                                    fontSize:
+                                        MediaQuery.of(context).size.height < 600
+                                            ? 22
+                                            : 22,
+                                    color: Colors.black45,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(height: 5),
+                                Text(
+                                  email,
+                                  style: TextStyle(
+                                    fontSize:
+                                        MediaQuery.of(context).size.height < 600
+                                            ? 15
+                                            : 15,
+                                    color: Colors.black45,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
                         ),
-                      ),
-                      SizedBox(width: 20),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            'Ernest David',
-                            style: TextStyle(
-                              fontSize: MediaQuery.of(context).size.height < 600
-                                  ? 22
-                                  : 22,
-                              color: Colors.black45,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(height: 5),
-                          Text(
-                            'decospurs@gmail.com',
-                            style: TextStyle(
-                              fontSize: MediaQuery.of(context).size.height < 600
-                                  ? 15
-                                  : 15,
-                              color: Colors.black45,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
+                      );
+                    }
+                    return SizedBox.shrink();
+                  },
                 )
               ],
             ),

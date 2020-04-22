@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vestinsight/features/home/data/local/models/brokers_model.dart';
 import 'package:vestinsight/features/home/data/local/models/investment_model.dart';
+import 'package:vestinsight/features/home/domain/entities/user.dart';
 import 'package:vestinsight/features/home/presentation/widgets/investment_card.dart';
+import 'package:vestinsight/features/onboarding/presentation/bloc/user_auth/bloc.dart';
+import 'package:vestinsight/injection_container.dart';
 
 import '../../../../routes.dart';
 
@@ -47,15 +51,24 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
-                        Text(
-                          'Hi, David',
-                          style: TextStyle(
-                            fontSize: MediaQuery.of(context).size.height < 600
-                                ? 30
-                                : 40,
-                            color: Colors.black45,
-                            fontWeight: FontWeight.bold,
-                          ),
+                        BlocBuilder<UserAuthBloc, UserAuthState>(
+                          builder: (context, state) {
+                            if (state is AuthenticatedState) {
+                              String name = state.user.lastName;
+                              return Text(
+                                'Hi, $name',
+                                style: TextStyle(
+                                  fontSize:
+                                      MediaQuery.of(context).size.height < 600
+                                          ? 30
+                                          : 40,
+                                  color: Colors.black45,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              );
+                            }
+                            return SizedBox(height: 10);
+                          },
                         ),
                       ],
                     ),

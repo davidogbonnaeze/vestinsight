@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:vestinsight/features/onboarding/domain/repositories/auth_service.dart';
+import 'package:vestinsight/core/services/auth_service.dart';
 import '../../../../injection_container.dart';
 import './bloc.dart';
 

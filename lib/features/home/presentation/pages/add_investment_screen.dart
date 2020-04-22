@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
@@ -15,7 +14,6 @@ class AddInvestmentsScreen extends StatefulWidget {
 class _AddInvestmentsScreenState extends State<AddInvestmentsScreen> {
   File _image;
   final _formKey = GlobalKey<FormState>();
-  String _email;
   bool loggingIn = false;
   String _dropdownValue = 'Agropartnerships';
   List<String> _brokers = [
@@ -25,7 +23,6 @@ class _AddInvestmentsScreenState extends State<AddInvestmentsScreen> {
     'PiggyVest',
     'ThriveAgric'
   ];
-  final FocusNode _emailFocus = FocusNode();
   final FocusNode _selectBrokerFocus = FocusNode();
 
   _showSelectImageDialog() {
@@ -87,20 +84,13 @@ class _AddInvestmentsScreenState extends State<AddInvestmentsScreen> {
     Navigator.pop(context);
     File imageFile = await ImagePicker.pickImage(source: source);
     if (imageFile != null) {
-      imageFile = await _cropImage(imageFile);
       setState(() {
         _image = imageFile;
       });
     }
   }
 
-  _cropImage(File imageFile) async {
-    File croppedImage = await ImageCropper.cropImage(
-      sourcePath: imageFile.path,
-      aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
-    );
-    return croppedImage;
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -304,17 +294,19 @@ class _AddInvestmentsScreenState extends State<AddInvestmentsScreen> {
                               child: Container(
                                 height: 250,
                                 width: width,
-                                color: Colors.grey[300],
-                                child: _image == null
-                                    ? Icon(
-                                        Icons.add_a_photo,
-                                        color: Colors.white70,
-                                        size: 80,
-                                      )
-                                    : Image(
-                                        image: FileImage(_image),
-                                        fit: BoxFit.cover,
-                                      ),
+                                decoration: BoxDecoration(
+                                  color: Colors.grey[300],
+                                  image: _image == null
+                                      ? Icon(
+                                          Icons.add_a_photo,
+                                          color: Colors.white70,
+                                          size: 80,
+                                        )
+                                      : DecorationImage(
+                                          image: FileImage(_image),
+                                          fit: BoxFit.fitHeight,
+                                        ),
+                                ),
                               ),
                             ),
                           ],

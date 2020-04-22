@@ -28,20 +28,20 @@ List<NotificationModel> notifications = [
   nine
 ];
 NotificationModel one =
-    NotificationModel(notifierId: joy.profileImageURL, investorName: joy.name);
+    NotificationModel(notifierId: joy.profileImageUrl, investorName: joy.name);
 NotificationModel two = NotificationModel(
-    notifierId: favor.profileImageURL, investorName: favor.name);
+    notifierId: favor.profileImageUrl, investorName: favor.name);
 NotificationModel three = NotificationModel(
-    notifierId: charity.profileImageURL, investorName: charity.name);
+    notifierId: charity.profileImageUrl, investorName: charity.name);
 NotificationModel four = NotificationModel(
-    notifierId: nike.profileImageURL, investorName: nike.name);
+    notifierId: nike.profileImageUrl, investorName: nike.name);
 NotificationModel five = NotificationModel(
-    notifierId: emily.profileImageURL, investorName: emily.name);
+    notifierId: emily.profileImageUrl, investorName: emily.name);
 NotificationModel six =
-    NotificationModel(notifierId: zoe.profileImageURL, investorName: zoe.name);
+    NotificationModel(notifierId: zoe.profileImageUrl, investorName: zoe.name);
 NotificationModel seven =
-    NotificationModel(notifierId: zoe.profileImageURL, investorName: zoe.name);
+    NotificationModel(notifierId: zoe.profileImageUrl, investorName: zoe.name);
 NotificationModel eight =
-    NotificationModel(notifierId: joy.profileImageURL, investorName: joy.name);
+    NotificationModel(notifierId: joy.profileImageUrl, investorName: joy.name);
 NotificationModel nine = NotificationModel(
-    notifierId: charity.profileImageURL, investorName: charity.name);
+    notifierId: charity.profileImageUrl, investorName: charity.name);

@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
+import 'package:vestinsight/features/home/domain/entities/user.dart';
 
 abstract class UserAuthState extends Equatable {
   const UserAuthState();
@@ -12,7 +12,7 @@ class InitialUserAuthState extends UserAuthState {
 }
 
 class AuthenticatedState extends UserAuthState {
-  final FirebaseUser user;
+  final User user;
   AuthenticatedState({@required this.user});
 
   @override

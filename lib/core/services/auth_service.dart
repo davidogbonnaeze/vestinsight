@@ -27,6 +27,7 @@ class AuthService {
           'firstName': firstName,
           'lastName': lastName,
           'email': email,
+          'profileImageUrl': '',
         });
       }
       print("REPO : ${authResult.user.email}");

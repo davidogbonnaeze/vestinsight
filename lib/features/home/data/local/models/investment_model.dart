@@ -39,7 +39,7 @@ InvestmentModel one = InvestmentModel(
   duration: '6 mos',
   percentageROI: '14%',
   amount: '50,000',
-  investorId: joy.profileImageURL,
+  investorId: joy.profileImageUrl,
   investorName: joy.name,
 );
 
@@ -49,7 +49,7 @@ InvestmentModel two = InvestmentModel(
   duration: '5 mos',
   percentageROI: '20%',
   amount: '40,000',
-  investorId: favor.profileImageURL,
+  investorId: favor.profileImageUrl,
   investorName: favor.name,
 );
 
@@ -59,7 +59,7 @@ InvestmentModel three = InvestmentModel(
   duration: '3 mos',
   percentageROI: '10%',
   amount: '20,000',
-  investorId: charity.profileImageURL,
+  investorId: charity.profileImageUrl,
   investorName: charity.name,
 );
 
@@ -69,7 +69,7 @@ InvestmentModel four = InvestmentModel(
   duration: '7 mos',
   percentageROI: '24%',
   amount: '80,000',
-  investorId: zoe.profileImageURL,
+  investorId: zoe.profileImageUrl,
   investorName: zoe.name,
 );
 
@@ -79,7 +79,7 @@ InvestmentModel five = InvestmentModel(
   duration: '3 mos',
   percentageROI: '21%',
   amount: '60,000',
-  investorId: emily.profileImageURL,
+  investorId: emily.profileImageUrl,
   investorName: emily.name,
 );
 
@@ -89,7 +89,7 @@ InvestmentModel six = InvestmentModel(
   duration: '8 mos',
   percentageROI: '35%',
   amount: '100,000',
-  investorId: nike.profileImageURL,
+  investorId: nike.profileImageUrl,
   investorName: nike.name,
 );
 
@@ -99,7 +99,7 @@ InvestmentModel seven = InvestmentModel(
   duration: '6 mos',
   percentageROI: '12%',
   amount: '50,000',
-  investorId: david.profileImageURL,
+  investorId: david.profileImageUrl,
   investorName: david.name,
 );
 

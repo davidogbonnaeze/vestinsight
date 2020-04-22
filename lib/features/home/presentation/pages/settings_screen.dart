@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vestinsight/features/login/presentation/bloc/bloc.dart';
-import 'package:vestinsight/features/onboarding/domain/repositories/auth_service.dart';
+import 'package:vestinsight/core/services/auth_service.dart';
 import 'package:vestinsight/features/onboarding/presentation/bloc/user_auth/bloc.dart';
 import 'package:vestinsight/injection_container.dart';
 import 'package:vestinsight/routes.dart';

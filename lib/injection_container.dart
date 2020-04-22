@@ -1,8 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vestinsight/core/services/database_service.dart';
+import 'package:vestinsight/core/services/storage_service.dart';
+import 'package:vestinsight/features/home/presentation/blocs/edit_profile/bloc.dart';
 import 'package:vestinsight/features/login/presentation/bloc/bloc.dart';
-import 'package:vestinsight/features/onboarding/domain/repositories/auth_service.dart';
+import 'package:vestinsight/core/services/auth_service.dart';
 import 'package:vestinsight/features/onboarding/presentation/bloc/user_auth/bloc.dart';
 import 'package:vestinsight/features/signup/presentation/bloc/bloc.dart';
 
@@ -18,7 +22,13 @@ Future<void> setupLocator() async {
   sl.registerFactory(
     () => SignUpBloc(),
   );
+  sl.registerFactory(
+    () => EditProfileBloc(),
+  );
 
   sl.registerLazySingleton(() => AuthService());
+  sl.registerLazySingleton(() => DataBaseService());
+  sl.registerLazySingleton(() => StorageService());
   sl.registerLazySingleton(() => Firestore.instance);
+  sl.registerLazySingleton(() => FirebaseStorage.instance);
 }
