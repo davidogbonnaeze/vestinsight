@@ -8,8 +8,7 @@ import 'package:uuid/uuid.dart';
 import '../constants.dart';
 
 class StorageService {
-  static Future<String> uploadUserProfileImage(
-      String url, File imageFile) async {
+  Future<String> uploadUserProfileImage(String url, File imageFile) async {
     String photoId = Uuid().v4();
     File image = await compressImage(imageFile, photoId);
     if (url.isNotEmpty) {
@@ -19,6 +18,17 @@ class StorageService {
 
     StorageUploadTask uploadTask = storageRef
         .child('images/users/userProfile_$photoId.jpg')
+        .putFile(image);
+    StorageTaskSnapshot storageSnap = await uploadTask.onComplete;
+    String downloadUrl = await storageSnap.ref.getDownloadURL();
+    return downloadUrl;
+  }
+
+  Future<String> uploadProofOfInvestmentImage(File imageFile) async {
+    String photoId = Uuid().v4();
+    File image = await compressImage(imageFile, photoId);
+    StorageUploadTask uploadTask = storageRef
+        .child('images/proofOfInvestment/proofOfInvestment_$photoId.jpg')
         .putFile(image);
     StorageTaskSnapshot storageSnap = await uploadTask.onComplete;
     String downloadUrl = await storageSnap.ref.getDownloadURL();

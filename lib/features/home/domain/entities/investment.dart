@@ -1,32 +1,33 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
+import 'package:meta/meta.dart';
 
 class Investment extends Equatable {
   final String id;
   final String amount;
   final String brokerId;
   final String investorId;
-  final String investorName;
   final String description;
   final String duration;
-  final DateTime investmentDate;
+  final String investmentDate;
   final String percentageROI;
   final String proofOfInvestmentURL;
   final String investmentStatus;
-  final List<String> watchers;
+  final Timestamp timestamp;
 
   Investment({
     this.id,
-    this.amount,
-    this.brokerId,
-    this.investorId,
-    this.investorName,
-    this.description,
-    this.duration,
-    this.investmentDate,
-    this.percentageROI,
-    this.proofOfInvestmentURL,
-    this.investmentStatus,
-    this.watchers,
+    @required this.amount,
+    @required this.brokerId,
+    @required this.investorId,
+    @required this.description,
+    @required this.duration,
+    @required this.investmentDate,
+    @required this.percentageROI,
+    @required this.proofOfInvestmentURL,
+    @required this.investmentStatus,
+    @required this.timestamp,
   });
 
   @override
@@ -36,13 +37,12 @@ class Investment extends Equatable {
         amount,
         brokerId,
         investorId,
-        investorName,
         description,
         duration,
         investmentDate,
         percentageROI,
         proofOfInvestmentURL,
         investmentStatus,
-        watchers,
+        timestamp
       ];
 }

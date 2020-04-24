@@ -10,5 +10,6 @@ final brokersRef = _fireStore.collection('brokers');
 final investmentWatchersRef = _fireStore.collection('investmentWatchers');
 final notificationsRef = _fireStore.collection('notifications');
 final userInvestmentsRef = _fireStore.collection('userInvestments');
+final brokerInvestmentsRef = _fireStore.collection('brokerInvestments');
 final usersRef = _fireStore.collection('users');
 final watchingInvestmentsRef = _fireStore.collection('watchingInvestments');

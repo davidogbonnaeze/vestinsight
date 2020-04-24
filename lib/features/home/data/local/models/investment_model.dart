@@ -9,11 +9,10 @@ class InvestmentModel extends Investment {
   final String investorName;
   final String description;
   final String duration;
-  final DateTime investmentDate;
+  final String investmentDate;
   final String percentageROI;
   final String proofOfInvestmentURL;
   final String investmentStatus;
-  final List<String> watchers;
 
   InvestmentModel({
     this.id,
@@ -27,7 +26,6 @@ class InvestmentModel extends Investment {
     this.percentageROI,
     this.proofOfInvestmentURL,
     this.investmentStatus,
-    this.watchers,
   });
 }
 

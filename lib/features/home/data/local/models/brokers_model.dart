@@ -5,12 +5,10 @@ class BrokerModel extends Broker {
     String id,
     String name,
     String imgUrl,
-    List<String> investmentIds,
   }) : super(
           id: id,
           name: name,
           imgUrl: imgUrl,
-          investmentIds: investmentIds,
         );
 
   factory BrokerModel.fromJson(Map<String, dynamic> json) {
@@ -18,7 +16,6 @@ class BrokerModel extends Broker {
       id: json['id'],
       name: json['name'],
       imgUrl: json['imgUrl'],
-      investmentIds: json['investmentIds'],
     );
   }
 
@@ -27,7 +24,6 @@ class BrokerModel extends Broker {
       'id': id,
       'name': name,
       'imgUrl': imgUrl,
-      'investmentIds': investmentIds,
     };
   }
 }

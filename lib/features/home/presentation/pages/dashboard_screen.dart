@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vestinsight/features/home/data/local/models/brokers_model.dart';
+import 'package:vestinsight/core/services/database_service.dart';
 import 'package:vestinsight/features/home/data/local/models/investment_model.dart';
+import 'package:vestinsight/features/home/domain/entities/broker.dart';
 import 'package:vestinsight/features/home/domain/entities/user.dart';
 import 'package:vestinsight/features/home/presentation/widgets/investment_card.dart';
 import 'package:vestinsight/features/onboarding/presentation/bloc/user_auth/bloc.dart';
@@ -15,6 +16,23 @@ class DashBoardScreen extends StatefulWidget {
 }
 
 class _DashBoardScreenState extends State<DashBoardScreen> {
+  List<Broker> _brokers;
+  DataBaseService dataBaseService = sl<DataBaseService>();
+  @override
+  void initState() {
+    getBrokers();
+    super.initState();
+  }
+
+  getBrokers() async {
+    List<Broker> brokers = sl<List<Broker>>();
+    if (mounted) {
+      setState(() {
+        _brokers = brokers;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final double _screenHeight = MediaQuery.of(context).size.height;
@@ -140,9 +158,9 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                           child: ListView.builder(
                               scrollDirection: Axis.horizontal,
                               physics: BouncingScrollPhysics(),
-                              itemCount: brokers.length,
+                              itemCount: _brokers.length ?? 0,
                               itemBuilder: (BuildContext context, int index) {
-                                BrokerModel broker = brokers[index];
+                                Broker broker = _brokers[index];
                                 return InkWell(
                                   onTap: () => Routes.sailor
                                       .navigate('/explore_investment_screen'),

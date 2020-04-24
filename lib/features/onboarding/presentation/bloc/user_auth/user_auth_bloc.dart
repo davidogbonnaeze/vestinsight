@@ -56,7 +56,7 @@ class UserAuthBloc extends Bloc<UserAuthEvent, UserAuthState> {
           await _dataBaseService.getUserWIthId(userId: event.currentUser.uid);
       yield AuthenticatedState(user: currentUser);
     }
-    if (event is UserProfileChanged){
+    if (event is UserProfileChanged) {
       yield AuthenticatedState(user: event.user);
     }
   }

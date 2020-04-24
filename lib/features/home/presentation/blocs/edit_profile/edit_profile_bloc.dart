@@ -3,9 +3,12 @@ import 'package:bloc/bloc.dart';
 import 'package:vestinsight/core/services/database_service.dart';
 import 'package:vestinsight/core/services/storage_service.dart';
 import 'package:vestinsight/features/home/domain/entities/user.dart';
+import '../../../../../injection_container.dart';
 import './bloc.dart';
 
 class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
+  DataBaseService dataBaseService = sl<DataBaseService>();
+  StorageService storageService = sl<StorageService>();
   @override
   EditProfileState get initialState => InitialEditProfileState();
 
@@ -31,7 +34,7 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
     if (event.profilePicture == null) {
       _profileImageUrl = event.user.profileImageUrl;
     } else {
-      _profileImageUrl = await StorageService.uploadUserProfileImage(
+      _profileImageUrl = await storageService.uploadUserProfileImage(
           event.user.profileImageUrl, event.profilePicture);
     }
 
@@ -43,7 +46,7 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
       lastName: event.newLastName,
     );
 
-    DataBaseService.updateUser(user);
+    dataBaseService.updateUser(user);
     return user;
   }
 }
