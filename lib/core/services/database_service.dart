@@ -112,8 +112,12 @@ class DataBaseService {
   }
 
   Future<List<Watcher>> getInvestmentWatchers(String investmentId) async {
-    QuerySnapshot snapshot = await investmentWatchersRef.document(investmentId).collection('watchers').getDocuments();
-    List<Watcher> watchers = snapshot.documents.map((document) => Watcher.fromDoc(document));
+    QuerySnapshot snapshot = await investmentWatchersRef
+        .document(investmentId)
+        .collection('watchers')
+        .getDocuments();
+    List<Watcher> watchers =
+        snapshot.documents.map((document) => Watcher.fromDoc(document));
     return watchers;
   }
 
@@ -194,18 +198,21 @@ class DataBaseService {
     investmentWatchersRef
         .document(investment.id)
         .collection('watchers')
-        .document(currentUser.id).setData({
+        .document(currentUser.id)
+        .setData({
       'name': notifierName,
       'profileImageUrl': currentUser.profileImageUrl,
     });
     // populate Notifications collection with new notification record
-    notificationsRef.document(currentUser.id).collection('userNotifications')
-      .add({
-        'notifierId': currentUser.id,
-        'investmentId': investment.id,
-        'notifierName': notifierName,
-        'notifierProfileImageUrl': currentUser.profileImageUrl,
-        'timestamp': Timestamp.fromDate(DateTime.now()),
-      });
+    notificationsRef
+        .document(currentUser.id)
+        .collection('userNotifications')
+        .add({
+      'notifierId': currentUser.id,
+      'investmentId': investment.id,
+      'notifierName': notifierName,
+      'notifierProfileImageUrl': currentUser.profileImageUrl,
+      'timestamp': Timestamp.fromDate(DateTime.now()),
+    });
   }
 }
