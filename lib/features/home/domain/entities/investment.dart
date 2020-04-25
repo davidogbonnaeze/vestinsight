@@ -45,4 +45,20 @@ class Investment extends Equatable {
         investmentStatus,
         timestamp
       ];
+
+  factory Investment.fromDoc(DocumentSnapshot doc) {
+    return Investment(
+      id: doc.documentID,
+      amount: doc['amount'],
+      brokerId: doc['brokerId'],
+      investorId: doc['investorId'],
+      description: doc['description'],
+      duration: doc['duration'],
+      investmentDate: doc['investmentDate'],
+      percentageROI: doc['percentageROI'],
+      proofOfInvestmentURL: doc['proofOfInvestmentURL'],
+      investmentStatus: doc['investmentStatus'],
+      timestamp: doc['timestamp'],
+    );
+  }
 }

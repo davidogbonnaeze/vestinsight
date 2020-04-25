@@ -1,12 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:vestinsight/features/home/data/local/models/user_model.dart';
 import 'package:vestinsight/features/home/domain/entities/notification.dart';
 
-class NotificationModel extends Notification {
+class NotificationModel{
   final String id;
   final String notifierId;
   final String investmentId;
   final String investorName;
-  final DateTime timestamp;
+  final Timestamp timestamp;
 
   NotificationModel(
       {this.id,

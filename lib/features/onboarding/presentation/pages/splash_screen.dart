@@ -27,7 +27,14 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       body: Center(
-        child: Icon(Icons.trending_up, size: 40, color: Colors.white),
+        child: Container(
+          height: 95,
+          width: 95,
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(
+                      'assets/images/vestInsight_logo_transparent.png'))),
+        ),
       ),
     );
   }

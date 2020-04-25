@@ -27,7 +27,7 @@ class UserAuthBloc extends Bloc<UserAuthEvent, UserAuthState> {
           await Future.delayed(Duration(seconds: 3));
           FirebaseUser firebaseUser = await _authService.getCurrentUser();
           User currentUser =
-              await _dataBaseService.getUserWIthId(userId: firebaseUser.uid);
+              await _dataBaseService.getUser(userId: firebaseUser.uid);
           yield AuthenticatedState(user: currentUser);
         } else {
           await Future.delayed(Duration(seconds: 3));
@@ -48,12 +48,12 @@ class UserAuthBloc extends Bloc<UserAuthEvent, UserAuthState> {
     }
     if (event is SignUpSuccessfulEvent) {
       User currentUser =
-          await _dataBaseService.getUserWIthId(userId: event.currentUser.uid);
+          await _dataBaseService.getUser(userId: event.currentUser.uid);
       yield AuthenticatedState(user: currentUser);
     }
     if (event is LoginSuccessfulEvent) {
       User currentUser =
-          await _dataBaseService.getUserWIthId(userId: event.currentUser.uid);
+          await _dataBaseService.getUser(userId: event.currentUser.uid);
       yield AuthenticatedState(user: currentUser);
     }
     if (event is UserProfileChanged) {
