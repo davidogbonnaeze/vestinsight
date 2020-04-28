@@ -1,8 +1,20 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:sailor/sailor.dart';
+import 'package:vestinsight/features/home/domain/entities/broker.dart';
+import 'package:vestinsight/features/home/domain/entities/investment.dart';
+import 'package:vestinsight/features/home/domain/entities/user.dart';
 
 import '../../../../routes.dart';
 
 class InvestmentScreen extends StatefulWidget {
+  final Investment investment;
+  final User investor;
+  final Broker broker;
+
+  const InvestmentScreen({Key key, this.investment, this.investor, this.broker})
+      : super(key: key);
+
   @override
   _InvestmentScreenState createState() => _InvestmentScreenState();
 }
@@ -58,7 +70,7 @@ class _InvestmentScreenState extends State<InvestmentScreen> {
               children: <Widget>[
                 Flexible(
                   child: Text(
-                    'Ginger Farm Investment, Osun state',
+                    widget.investment.description,
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w500,
@@ -68,8 +80,11 @@ class _InvestmentScreenState extends State<InvestmentScreen> {
                 ),
                 SizedBox(width: 10),
                 CircleAvatar(
-                  backgroundImage: AssetImage('assets/images/dave.jpg'),
-                  backgroundColor: Colors.white,
+                  backgroundImage: widget.investor.profileImageUrl.isEmpty
+                      ? AssetImage('assets/images/placeholder.png')
+                      : CachedNetworkImageProvider(
+                          widget.investor.profileImageUrl),
+                  backgroundColor: Colors.grey[300],
                   radius: 26,
                 )
               ],
@@ -102,7 +117,7 @@ class _InvestmentScreenState extends State<InvestmentScreen> {
                   decoration: BoxDecoration(
                     color: Colors.white10,
                     image: DecorationImage(
-                        image: AssetImage('assets/images/cowrywise.png')),
+                        image: AssetImage(widget.broker.imgUrl)),
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
                 )
@@ -120,7 +135,7 @@ class _InvestmentScreenState extends State<InvestmentScreen> {
                 ),
                 SizedBox(width: 20),
                 Text(
-                  '₦50,000',
+                  '₦${widget.investment.amount}',
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w500,
@@ -140,7 +155,7 @@ class _InvestmentScreenState extends State<InvestmentScreen> {
                 ),
                 SizedBox(width: 20),
                 Text(
-                  '12 Sept 2019',
+                  widget.investment.investmentDate,
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w500,
@@ -160,7 +175,7 @@ class _InvestmentScreenState extends State<InvestmentScreen> {
                 ),
                 SizedBox(width: 20),
                 Text(
-                  '6 months',
+                  '${widget.investment.duration} months',
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w500,
@@ -180,7 +195,7 @@ class _InvestmentScreenState extends State<InvestmentScreen> {
                 ),
                 SizedBox(width: 20),
                 Text(
-                  '20%',
+                  '${widget.investment.percentageROI}%',
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w500,
@@ -202,7 +217,9 @@ class _InvestmentScreenState extends State<InvestmentScreen> {
             ),
             SizedBox(height: 10),
             GestureDetector(
-              onTap: () => Routes.sailor.navigate('/view_image_screen'),
+              onTap: () => Routes.sailor.navigate('/view_image_screen',
+                  transitions: [SailorTransition.slide_from_right],
+                  params: {'imageUrl': widget.investment.proofOfInvestmentURL}),
               child: Stack(
                 children: <Widget>[
                   Container(
@@ -210,8 +227,8 @@ class _InvestmentScreenState extends State<InvestmentScreen> {
                     decoration: BoxDecoration(
                       color: Colors.grey.withOpacity(.4),
                       image: DecorationImage(
-                          image: AssetImage(
-                              'assets/images/proof_of_investment.jpeg')),
+                          image: CachedNetworkImageProvider(
+                              widget.investment.proofOfInvestmentURL)),
                     ),
                   ),
                   Container(

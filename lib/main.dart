@@ -27,7 +27,6 @@ class MyApp extends StatelessWidget {
         create: (context) => sl<UserAuthBloc>()..add(AppStartedEvent()),
         child: BlocListener<UserAuthBloc, UserAuthState>(
           listener: (context, state) {
-            print(state);
             if (state is AuthenticatedState) {
               return Routes.sailor.navigate('/home_screen',
                   navigationType: NavigationType.pushReplace);

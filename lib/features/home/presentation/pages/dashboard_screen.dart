@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sailor/sailor.dart';
 import 'package:vestinsight/core/services/database_service.dart';
 import 'package:vestinsight/features/home/data/local/models/investment_model.dart';
 import 'package:vestinsight/features/home/domain/entities/broker.dart';
-import 'package:vestinsight/features/home/domain/entities/user.dart';
+import 'package:vestinsight/features/home/domain/entities/investment.dart';
 import 'package:vestinsight/features/home/presentation/widgets/investment_card.dart';
 import 'package:vestinsight/features/onboarding/presentation/bloc/user_auth/bloc.dart';
 import 'package:vestinsight/injection_container.dart';
 
 import '../../../../routes.dart';
+import 'broker_Investments_screen.dart';
 
 class DashBoardScreen extends StatefulWidget {
   @override
@@ -17,10 +19,12 @@ class DashBoardScreen extends StatefulWidget {
 
 class _DashBoardScreenState extends State<DashBoardScreen> {
   List<Broker> _brokers;
+  List<Investment> _latestInvestment;
   DataBaseService dataBaseService = sl<DataBaseService>();
   @override
   void initState() {
     getBrokers();
+    getLatestInvestments();
     super.initState();
   }
 
@@ -29,6 +33,15 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
     if (mounted) {
       setState(() {
         _brokers = brokers;
+      });
+    }
+  }
+
+  getLatestInvestments() async {
+    List<Investment> latestInvestment = sl<List<Investment>>();
+    if (mounted) {
+      setState(() {
+        _latestInvestment = latestInvestment;
       });
     }
   }
@@ -162,8 +175,15 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                               itemBuilder: (BuildContext context, int index) {
                                 Broker broker = _brokers[index];
                                 return InkWell(
-                                  onTap: () => Routes.sailor
-                                      .navigate('/explore_investment_screen'),
+                                  onTap: () => Routes.sailor.navigate(
+                                    '/broker_investments_screen',
+                                    transitions: [
+                                      SailorTransition.slide_from_right
+                                    ],
+                                    params: {
+                                      'brokerId': broker.id,
+                                    },
+                                  ),
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Container(
@@ -236,10 +256,11 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                             child: ListView.builder(
                                 scrollDirection: Axis.horizontal,
                                 physics: BouncingScrollPhysics(),
-                                itemCount: investments.length,
+                                itemCount: _latestInvestment.length ?? 0,
                                 itemBuilder: (BuildContext context, int index) {
-                                  InvestmentModel investment =
-                                      investments[index];
+                                  Investment latestInvestment =
+                                      _latestInvestment[index];
+
                                   return Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Container(
@@ -252,14 +273,17 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                         ),
                                       ),
                                       child: InvestmentCard(
-                                        brokerImageURL: investment.brokerId,
-                                        investorName: investment.investorName,
-                                        investmentAmount: investment.amount,
+                                        investmentId: latestInvestment.id,
+                                        brokerId: latestInvestment.brokerId,
+                                        investmentAmount:
+                                            latestInvestment.amount,
                                         investmentDescription:
-                                            investment.description,
-                                        investmentDuration: investment.duration,
-                                        investorImageURL: investment.investorId,
-                                        percentageROI: investment.percentageROI,
+                                            latestInvestment.description,
+                                        investmentDuration:
+                                            latestInvestment.duration,
+                                        investorId: latestInvestment.investorId,
+                                        percentageROI:
+                                            latestInvestment.percentageROI,
                                       ),
                                     ),
                                   );

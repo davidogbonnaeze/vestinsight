@@ -44,7 +44,6 @@ class UserAuthBloc extends Bloc<UserAuthEvent, UserAuthState> {
     if (event is LogOutEvent) {
       _authService.signOut();
       yield UnauthenticatedState();
-      print('sign out');
     }
     if (event is SignUpSuccessfulEvent) {
       User currentUser =
@@ -64,7 +63,6 @@ class UserAuthBloc extends Bloc<UserAuthEvent, UserAuthState> {
   isFirstTimer() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int counter = (prefs.getInt('counter') ?? 0);
-    print(counter);
     bool isFirstTimer = counter < 1;
     counter++;
     prefs.setInt('counter', counter);

@@ -24,7 +24,6 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
           password: event.password,
         );
         yield SignUpSuccessState(user: user);
-        print('login success');
       } catch (e) {
         yield SignUpFailedState(errorMessage: e.toString());
       }

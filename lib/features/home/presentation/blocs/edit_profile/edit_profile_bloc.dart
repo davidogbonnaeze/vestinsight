@@ -21,7 +21,6 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
         yield EditProfileLoadingState();
         User user = await processImageUpload(event);
         yield EditProfileSuccessState(user: user);
-        print('success state yielded');
       } catch (e) {
         yield EditProfileFailureState(message: e.toString());
       }

@@ -115,8 +115,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   BlocBuilder<SignUpBloc, SignUpState>(
                     bloc: signUpBloc,
                     builder: (context, state) {
-                      print(state);
-
                       if (state is SignUpLoadingState) {}
                       return SizedBox.shrink();
                     },

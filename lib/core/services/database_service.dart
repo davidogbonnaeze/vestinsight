@@ -58,45 +58,60 @@ class DataBaseService {
     return brokers;
   }
 
-  static Future<List<Investment>> getBrokerInvestments(String brokerId) async {
+  Future<List<Investment>> getBrokerInvestments(String brokerId) async {
     QuerySnapshot brokerInvestmentsSnapshot = await brokerInvestmentsRef
         .document(brokerId)
         .collection('investments')
         .orderBy('timestamp', descending: true)
         .getDocuments();
     List<Investment> investments = brokerInvestmentsSnapshot.documents
-        .map((document) => Investment.fromDoc(document));
+        .map((document) => Investment.fromDoc(document))
+        .toList();
     return investments;
   }
 
-  static Future<List<Investment>> getUserInvestments(String brokerId) async {
+  Future<List<Investment>> getUserInvestments(String brokerId) async {
     QuerySnapshot userInvestmentsSnapshot = await userInvestmentsRef
         .document(brokerId)
         .collection('investments')
         .orderBy('timestamp', descending: true)
         .getDocuments();
     List<Investment> investments = userInvestmentsSnapshot.documents
-        .map((document) => Investment.fromDoc(document));
+        .map((document) => Investment.fromDoc(document))
+        .toList();
     return investments;
   }
 
-  static Future<List<Investment>> getAllInvestments() async {
+  Future<List<Investment>> getAllInvestments() async {
     QuerySnapshot allInvestmentsSnapshot = await allInvestmentsRef
         .orderBy('timestamp', descending: true)
         .getDocuments();
     List<Investment> investments = allInvestmentsSnapshot.documents
-        .map((document) => Investment.fromDoc(document));
+        .map((document) => Investment.fromDoc(document))
+        .toList();
     return investments;
   }
 
-  static Future<List<Investment>> getWatchingInvestments(String userId) async {
+  static Future<List<Investment>> getLatestInvestments() async {
+    QuerySnapshot allInvestmentsSnapshot = await allInvestmentsRef
+        .orderBy('timestamp', descending: true)
+        .limit(5)
+        .getDocuments();
+    List<Investment> investments = allInvestmentsSnapshot.documents
+        .map((document) => Investment.fromDoc(document))
+        .toList();
+    return investments;
+  }
+
+  Future<List<Investment>> getWatchingInvestments(String userId) async {
     QuerySnapshot watchingInvestmentsSnapshot = await watchingInvestmentsRef
         .document(userId)
         .collection('investments')
         .orderBy('timestamp', descending: true)
         .getDocuments();
     List<Investment> investments = watchingInvestmentsSnapshot.documents
-        .map((document) => Investment.fromDoc(document));
+        .map((document) => Investment.fromDoc(document))
+        .toList();
     return investments;
   }
 
@@ -107,7 +122,8 @@ class DataBaseService {
         .orderBy('timestamp', descending: true)
         .getDocuments();
     List<Notification> notifications = notificationsSnapshot.documents
-        .map((document) => Notification.fromDoc(document));
+        .map((document) => Notification.fromDoc(document))
+        .toList();
     return notifications;
   }
 
@@ -116,8 +132,9 @@ class DataBaseService {
         .document(investmentId)
         .collection('watchers')
         .getDocuments();
-    List<Watcher> watchers =
-        snapshot.documents.map((document) => Watcher.fromDoc(document));
+    List<Watcher> watchers = snapshot.documents
+        .map((document) => Watcher.fromDoc(document))
+        .toList();
     return watchers;
   }
 

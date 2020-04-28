@@ -3,17 +3,17 @@ import 'package:flutter/material.dart';
 import 'investment_card.dart';
 
 class ElevatedInvestmentCard extends StatelessWidget {
-  final String investorName;
-  final String investorImageURL;
-  final String brokerImageURL;
+  final String investorId;
+  final String brokerId;
+  final String investmentId;
   final String investmentDescription;
   final String investmentAmount;
   final String investmentDuration;
   final String percentageROI;
   ElevatedInvestmentCard(
-      {this.investorName,
-      this.investorImageURL,
-      this.brokerImageURL,
+      {this.investorId,
+      this.brokerId,
+        this.investmentId,
       this.investmentDescription,
       this.investmentAmount,
       this.investmentDuration,
@@ -24,7 +24,6 @@ class ElevatedInvestmentCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
       child: Container(
-        height: 200,
         width: _screenWidth * 0.9,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(
@@ -32,14 +31,14 @@ class ElevatedInvestmentCard extends StatelessWidget {
           ),
         ),
         child: Card(
-          elevation: 4,
+          elevation: 2,
           child: InvestmentCard(
-            brokerImageURL: this.brokerImageURL,
-            investorName: this.investorName,
+            investmentId: this.investmentId,
+            brokerId: this.brokerId,
             investmentAmount: this.investmentAmount,
             investmentDescription: this.investmentDescription,
             investmentDuration: this.investmentDuration,
-            investorImageURL: this.investorImageURL,
+            investorId: this.investorId,
             percentageROI: this.percentageROI,
           ),
         ),

@@ -3,14 +3,20 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:vestinsight/core/services/database_service.dart';
 import 'package:vestinsight/core/services/storage_service.dart';
+import 'package:vestinsight/features/home/domain/entities/investment.dart';
 import 'package:vestinsight/features/home/presentation/blocs/add_investment/add_investment_bloc.dart';
+import 'package:vestinsight/features/home/presentation/blocs/broker_investment/broker_investment_bloc.dart';
 import 'package:vestinsight/features/home/presentation/blocs/edit_profile/bloc.dart';
+import 'package:vestinsight/features/home/presentation/blocs/explore_investment/bloc.dart';
+import 'package:vestinsight/features/home/presentation/blocs/investment_card/bloc.dart';
+import 'package:vestinsight/features/home/presentation/blocs/user_profile/bloc.dart';
 import 'package:vestinsight/features/login/presentation/bloc/bloc.dart';
 import 'package:vestinsight/core/services/auth_service.dart';
 import 'package:vestinsight/features/onboarding/presentation/bloc/user_auth/bloc.dart';
 import 'package:vestinsight/features/signup/presentation/bloc/bloc.dart';
 
 import 'features/home/domain/entities/broker.dart';
+import 'features/home/presentation/blocs/broker_investment/bloc.dart';
 
 final sl = GetIt.instance;
 
@@ -31,6 +37,17 @@ Future<void> setupLocator() async {
   sl.registerFactory(
     () => AddInvestmentBloc(),
   );
+  sl.registerFactory(
+    () => ExploreInvestmentBloc()..add(ExploreInvestmentsPageLoadedEvent()),
+  );
+
+  sl.registerFactory(
+    () => BrokerInvestmentBloc(),
+  );
+
+  sl.registerFactory(
+    () => UserProfileBloc(),
+  );
 
   sl.registerLazySingleton(() => AuthService());
   sl.registerLazySingleton(() => DataBaseService());
@@ -38,5 +55,8 @@ Future<void> setupLocator() async {
   sl.registerLazySingleton(() => Firestore.instance);
   sl.registerLazySingleton(() => FirebaseStorage.instance);
   final List<Broker> brokers = await DataBaseService.getBrokers();
+  final List<Investment> latestInvestments =
+      await DataBaseService.getLatestInvestments();
   sl.registerLazySingleton(() => brokers);
+  sl.registerLazySingleton(() => latestInvestments);
 }

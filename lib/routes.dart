@@ -1,4 +1,8 @@
 import 'package:sailor/sailor.dart';
+import 'package:vestinsight/features/home/domain/entities/broker.dart';
+import 'package:vestinsight/features/home/domain/entities/investment.dart';
+import 'package:vestinsight/features/home/domain/entities/user.dart';
+import 'package:vestinsight/features/home/presentation/pages/broker_Investments_screen.dart';
 import 'package:vestinsight/features/home/presentation/pages/edit_profile_screen.dart';
 import 'package:vestinsight/features/home/presentation/pages/explore_investments_screen.dart';
 import 'package:vestinsight/features/home/presentation/pages/home_screen.dart';
@@ -69,15 +73,38 @@ class Routes {
       SailorRoute(
         name: '/investment_screen',
         builder: (context, args, params) {
-          return InvestmentScreen();
+          final investment = params.param<Investment>('investment');
+          final broker = params.param<Broker>('broker');
+          final investor = params.param<User>('investor');
+          return InvestmentScreen(
+            broker: broker,
+            investment: investment,
+            investor: investor,
+          );
         },
+        params: [
+          SailorParam<Investment>(
+            name: 'investment',
+          ),
+          SailorParam<Broker>(
+            name: 'broker',
+          ),
+          SailorParam<User>(
+            name: 'investor',
+          ),
+        ],
       ),
       SailorRoute(
-        name: '/view_image_screen',
-        builder: (context, args, params) {
-          return ViewImageScreen();
-        },
-      ),
+          name: '/view_image_screen',
+          builder: (context, args, params) {
+            final imageUrl = params.param<String>('imageUrl');
+            return ViewImageScreen(imageUrl: imageUrl);
+          },
+          params: [
+            SailorParam<String>(
+              name: 'imageUrl',
+            ),
+          ]),
       SailorRoute(
         name: '/explore_investment_screen',
         builder: (context, args, params) {
@@ -89,6 +116,18 @@ class Routes {
         builder: (context, args, params) {
           return EditProfileScreen();
         },
+      ),
+      SailorRoute(
+        name: '/broker_investments_screen',
+        builder: (context, args, params) {
+          final brokerId = params.param<String>('brokerId');
+          return BrokerInvestmentsScreen(brokerId: brokerId);
+        },
+        params: [
+          SailorParam<String>(
+            name: 'brokerId',
+          ),
+        ],
       ),
     ]);
   }

@@ -1,7 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 
 class ViewImageScreen extends StatefulWidget {
+  final String imageUrl;
+
+  const ViewImageScreen({Key key, this.imageUrl}) : super(key: key);
   @override
   _ViewImageScreenState createState() => _ViewImageScreenState();
 }
@@ -11,7 +15,7 @@ class _ViewImageScreenState extends State<ViewImageScreen> {
   Widget build(BuildContext context) {
     return Container(
       child: PhotoView(
-        imageProvider: AssetImage('assets/images/proof_of_investment.jpeg'),
+        imageProvider: CachedNetworkImageProvider(widget.imageUrl),
       ),
     );
   }

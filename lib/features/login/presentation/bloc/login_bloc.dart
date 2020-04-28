@@ -20,7 +20,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         FirebaseUser user = await authService.signInWithEmailAndPassword(
             event.email, event.password);
         yield LoginSuccessState(user: user);
-        print('login success');
       } catch (e) {
         yield LoginFailState(message: e.toString());
       }

@@ -39,7 +39,6 @@ class _LoginScreenState extends State<LoginScreen> {
           child: BlocListener<LoginBloc, LoginState>(
             bloc: loginBloc,
             listener: (context, state) {
-              print(state);
               if (state is LoginSuccessState) {
                 BlocProvider.of<UserAuthBloc>(context)
                     .add(LoginSuccessfulEvent(currentUser: state.user));
@@ -93,8 +92,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     BlocBuilder<LoginBloc, LoginState>(
                       bloc: loginBloc,
                       builder: (context, state) {
-                        print(state);
-
                         if (state is LoginLoadingState) {}
                         return SizedBox.shrink();
                       },

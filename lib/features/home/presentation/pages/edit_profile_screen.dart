@@ -69,14 +69,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           child: BlocListener<EditProfileBloc, EditProfileState>(
             bloc: _editProfileBloc,
             listener: (context, state) {
-              print(state);
               if (state is EditProfileSuccessState) {
-                print('success');
                 BlocProvider.of<UserAuthBloc>(context)
                     .add(UserProfileChanged(user: state.user));
               }
               if (state is EditProfileLoadingState) {
-                print('loading');
                 BotToast.showCustomLoading(
                     clickClose: false,
                     allowClick: true,

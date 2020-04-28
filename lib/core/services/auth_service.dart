@@ -30,10 +30,8 @@ class AuthService {
           'profileImageUrl': '',
         });
       }
-      print("REPO : ${authResult.user.email}");
       return authResult.user;
     } on PlatformException catch (e) {
-      print(e);
       String authError = "";
       authError = filterErrorMessage(e, authError);
       throw Exception(authError);
@@ -46,10 +44,8 @@ class AuthService {
       AuthResult authResult = await firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
       FirebaseUser user = authResult.user;
-      print(user.toString());
       return user;
     } on PlatformException catch (e) {
-      print(e);
       String authError = "";
       authError = filterErrorMessage(e, authError);
       throw Exception(authError);
