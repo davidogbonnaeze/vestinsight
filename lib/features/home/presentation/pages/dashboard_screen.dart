@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sailor/sailor.dart';
 import 'package:vestinsight/core/services/database_service.dart';
-import 'package:vestinsight/features/home/data/local/models/investment_model.dart';
 import 'package:vestinsight/features/home/domain/entities/broker.dart';
 import 'package:vestinsight/features/home/domain/entities/investment.dart';
+import 'package:vestinsight/features/home/domain/entities/user.dart';
 import 'package:vestinsight/features/home/presentation/widgets/investment_card.dart';
 import 'package:vestinsight/features/onboarding/presentation/bloc/user_auth/bloc.dart';
 import 'package:vestinsight/injection_container.dart';
 
 import '../../../../routes.dart';
-import 'broker_Investments_screen.dart';
 
 class DashBoardScreen extends StatefulWidget {
   @override
@@ -20,7 +19,8 @@ class DashBoardScreen extends StatefulWidget {
 class _DashBoardScreenState extends State<DashBoardScreen> {
   List<Broker> _brokers;
   List<Investment> _latestInvestment;
-  DataBaseService dataBaseService = sl<DataBaseService>();
+  DataBaseService dataBaseService;
+  int numberOfInvestments;
   @override
   void initState() {
     getBrokers();
@@ -31,9 +31,12 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   getBrokers() async {
     List<Broker> brokers = sl<List<Broker>>();
     if (mounted) {
-      setState(() {
-        _brokers = brokers;
-      });
+      _brokers = brokers;
+      dataBaseService = sl<DataBaseService>();
+      User currentUser = BlocProvider.of<UserAuthBloc>(context).state.props[0];
+      numberOfInvestments =
+          await dataBaseService.getNumberOfUserInvestments(currentUser.id);
+      setState(() {});
     }
   }
 
@@ -85,7 +88,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                         BlocBuilder<UserAuthBloc, UserAuthState>(
                           builder: (context, state) {
                             if (state is AuthenticatedState) {
-                              String name = state.user.lastName;
+                              String name = state.user.firstName;
                               return Text(
                                 'Hi, $name',
                                 style: TextStyle(
@@ -109,7 +112,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                     child: Row(
                       children: <Widget>[
                         Text(
-                          'Total Investments',
+                          'Number of Investments',
                           style: TextStyle(
                             fontSize: 20,
                             color: Colors.black45,
@@ -124,7 +127,9 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                     child: Row(
                       children: <Widget>[
                         Text(
-                          '\$200',
+                          numberOfInvestments.toString() == 'null'
+                              ? '0'
+                              : numberOfInvestments.toString(),
                           style: TextStyle(
                             fontSize: 40,
                             color: Colors.black,

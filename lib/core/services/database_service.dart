@@ -115,14 +115,14 @@ class DataBaseService {
     return investments;
   }
 
-  static Future<List<Notification>> getNotifications(String userId) async {
+  Future<List<AppNotification>> getNotifications(String userId) async {
     QuerySnapshot notificationsSnapshot = await notificationsRef
         .document(userId)
         .collection('userNotifications')
         .orderBy('timestamp', descending: true)
         .getDocuments();
-    List<Notification> notifications = notificationsSnapshot.documents
-        .map((document) => Notification.fromDoc(document))
+    List<AppNotification> notifications = notificationsSnapshot.documents
+        .map((document) => AppNotification.fromDoc(document))
         .toList();
     return notifications;
   }
@@ -192,6 +192,14 @@ class DataBaseService {
     });
   }
 
+  Future<int> getNumberOfUserInvestments(String userId) async {
+    QuerySnapshot snapshot = await userInvestmentsRef
+        .document(userId)
+        .collection('investments')
+        .getDocuments();
+    return snapshot.documents.length;
+  }
+
   void watchInvestment(Investment investment, User currentUser) {
     String notifierName = currentUser.firstName + ' ' + currentUser.lastName;
     //Populate Watching Investments Collection with investment records
@@ -225,11 +233,60 @@ class DataBaseService {
         .document(currentUser.id)
         .collection('userNotifications')
         .add({
+      'action': 'Started Watching',
       'notifierId': currentUser.id,
       'investmentId': investment.id,
       'notifierName': notifierName,
       'notifierProfileImageUrl': currentUser.profileImageUrl,
       'timestamp': Timestamp.fromDate(DateTime.now()),
     });
+  }
+
+  void unWatchInvestment(Investment investment, User currentUser) {
+    String notifierName = currentUser.firstName + ' ' + currentUser.lastName;
+    //Populate Watching Investments Collection with investment records
+    watchingInvestmentsRef
+        .document(currentUser.id)
+        .collection('investments')
+        .document(investment.id)
+        .get()
+        .then((doc) {
+      if (doc.exists) {
+        doc.reference.delete();
+      }
+    });
+    //Populate investment watchers collection watcher id
+    investmentWatchersRef
+        .document(investment.id)
+        .collection('watchers')
+        .document(currentUser.id)
+        .get()
+        .then((doc) {
+      if (doc.exists) {
+        doc.reference.delete();
+      }
+    });
+    // populate Notifications collection with new notification record
+    notificationsRef
+        .document(currentUser.id)
+        .collection('userNotifications')
+        .add({
+      'action': 'Stopped Watching',
+      'notifierId': currentUser.id,
+      'investmentId': investment.id,
+      'notifierName': notifierName,
+      'notifierProfileImageUrl': currentUser.profileImageUrl,
+      'timestamp': Timestamp.fromDate(DateTime.now()),
+    });
+  }
+
+  Future<bool> isWatchingInvestment(
+      Investment investment, User currentUser) async {
+    DocumentSnapshot document = await watchingInvestmentsRef
+        .document(currentUser.id)
+        .collection('investments')
+        .document(investment.id)
+        .get();
+    return document.exists;
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sailor/sailor.dart';
 import 'package:vestinsight/features/login/presentation/bloc/bloc.dart';
 import 'package:vestinsight/core/services/auth_service.dart';
 import 'package:vestinsight/features/onboarding/presentation/bloc/user_auth/bloc.dart';
@@ -64,7 +65,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             InkWell(
               onTap: () {
-                Routes.sailor.navigate('/edit_profile_screen');
+                Routes.sailor.navigate('/edit_profile_screen',
+                    transitions: [SailorTransition.slide_from_right]);
               },
               child: Container(
                 decoration: BoxDecoration(

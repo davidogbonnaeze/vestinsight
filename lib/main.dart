@@ -29,11 +29,13 @@ class MyApp extends StatelessWidget {
           listener: (context, state) {
             if (state is AuthenticatedState) {
               return Routes.sailor.navigate('/home_screen',
-                  navigationType: NavigationType.pushReplace);
+                  navigationType: NavigationType.pushReplace,
+                  transitions: [SailorTransition.slide_from_right]);
             }
             if (state is UnauthenticatedState) {
               return Routes.sailor.navigate('/login_screen',
-                  navigationType: NavigationType.pushReplace);
+                  navigationType: NavigationType.pushReplace,
+                  transitions: [SailorTransition.slide_from_right]);
             }
             return null;
           },

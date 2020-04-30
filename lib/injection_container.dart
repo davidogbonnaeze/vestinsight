@@ -8,7 +8,6 @@ import 'package:vestinsight/features/home/presentation/blocs/add_investment/add_
 import 'package:vestinsight/features/home/presentation/blocs/broker_investment/broker_investment_bloc.dart';
 import 'package:vestinsight/features/home/presentation/blocs/edit_profile/bloc.dart';
 import 'package:vestinsight/features/home/presentation/blocs/explore_investment/bloc.dart';
-import 'package:vestinsight/features/home/presentation/blocs/investment_card/bloc.dart';
 import 'package:vestinsight/features/home/presentation/blocs/user_profile/bloc.dart';
 import 'package:vestinsight/features/login/presentation/bloc/bloc.dart';
 import 'package:vestinsight/core/services/auth_service.dart';
@@ -17,6 +16,8 @@ import 'package:vestinsight/features/signup/presentation/bloc/bloc.dart';
 
 import 'features/home/domain/entities/broker.dart';
 import 'features/home/presentation/blocs/broker_investment/bloc.dart';
+import 'features/home/presentation/blocs/notification/bloc.dart';
+import 'features/home/presentation/blocs/watch_investment/watch_investment_bloc.dart';
 
 final sl = GetIt.instance;
 
@@ -47,6 +48,14 @@ Future<void> setupLocator() async {
 
   sl.registerFactory(
     () => UserProfileBloc(),
+  );
+
+  sl.registerFactory(
+    () => WatchInvestmentBloc(),
+  );
+
+  sl.registerFactory(
+    () => NotificationBloc(),
   );
 
   sl.registerLazySingleton(() => AuthService());
